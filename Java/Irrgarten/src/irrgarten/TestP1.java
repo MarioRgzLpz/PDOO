@@ -12,28 +12,28 @@ public class TestP1 {
     public static void main(String[] args) {
         System.out.println("Probando la practica 1:\n");
         
-        System.out.println("Enum Directions:");
+        System.out.println("---------------Enum Directions-------------------");
         System.out.println(Directions.DOWN);
         System.out.println(Directions.UP);
         System.out.println(Directions.LEFT);
         System.out.println(Directions.RIGHT);
     
-        System.out.println("\nEnum Orientation:");
+        System.out.println("\n--------------Enum Orientation------------------");
         System.out.println(Orientation.HORIZONTAL);
         System.out.println(Orientation.VERTICAL);
         
-        System.out.println("\nEnum GameCharacter:");
+        System.out.println("\n--------------Enum GameCharacter-----------------");
         System.out.println(GameCharacter.PLAYER);
         System.out.println(GameCharacter.MONSTER);
         
-        System.out.println("\nCreando instancias de clase");
+        System.out.println("\n--------------Creando instancias de clase-------------");
         Weapon arma1 = new Weapon(2.3f, 4);
         Weapon arma2 = new Weapon(1.7f, 1);
         Shield shield1 = new Shield(2.9f, 5);
         Shield shield2 = new Shield(4.1f, 2);
         GameState juego = new GameState("Garden of Bambam", "Mario:vivo, Miguel:vivo, Andrea:muerto", "Minotauro, Manticora",0, false,"Se ha creado el tablero de juego");
         
-        System.out.println("\nMuestra de armas y escudos");
+        System.out.println("\n--------------Muestra de armas y escudos----------------");
         System.out.println("arma1: " + arma1.toString());
         System.out.println("arma2: " + arma2.toString());
         System.out.println("shield1: " + shield1.toString());
@@ -49,7 +49,7 @@ public class TestP1 {
         System.out.println("Intento de descartar shield2: " + arma2.discard());
         
         
-        System.out.println("\nEstado actual del juego");
+        System.out.println("\n---------------Estado actual del juego------------------");
         System.out.println("labyrinth: " + juego.getLabyrinthv());
         System.out.println("players: " + juego.getPlayers());
         System.out.println("monsters: " + juego.getMonsters());

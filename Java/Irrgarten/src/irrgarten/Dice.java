@@ -14,7 +14,7 @@ public class Dice {
     
     private static final int MAX_USES = 5; //Número maximo de usos de armas y escudos
     private static final float MAX_INTELLIGENCE = 10.0f; //Valor máximo para la inteligencia de jugadores y monstruos
-    private static final float MAX_STRENGHT = 10.0f; //Valor máximo para la fuerza de jugadores y monstruos
+    private static final float MAX_STRENGTH = 10.0f; //Valor máximo para la fuerza de jugadores y monstruos
     private static final float RESURRECT_PROB = 0.3f; //Probabilidad de que un jugador sea resucitado en cada turno
     private static final int WEAPONS_REWARD = 2; //Número maximo de armas recibidos al ganar un combate
     private static final int SHIELDS_REWARD = 3; //Número maximo de escudos recibidos al ganar un combate
@@ -37,7 +37,7 @@ public class Dice {
     }
     
     public float randomStrenght() {
-        return generator.nextFloat()*MAX_STRENGHT;
+        return generator.nextFloat()*MAX_STRENGTH;
     }
     
     public boolean resurrectPlayer() {

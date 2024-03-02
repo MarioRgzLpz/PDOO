@@ -34,7 +34,7 @@ public class GameState {
     }
     
     public String getMonsters() {
-        return labyrinthv;
+        return monsters;
     }
     
     public int getCurrentPlayer() {
