@@ -13,10 +13,19 @@ module Irrgarten
                 return @power
             else
                 return 0 
+            end
         end
 
         def to_s
             return "W[#{@power},#{@uses}]"
+        end
+
+        def discard
+            if Dice.new.discardElement(@uses)
+                return true
+            else
+                return false
+            end
         end
     end
 end
