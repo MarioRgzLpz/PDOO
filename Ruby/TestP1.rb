@@ -55,20 +55,19 @@ class TestP1
         puts "log: " + juego.get_log
 
         puts "\n----------------Prueba del dado-------------------"
-        dice = Irrgarten::Dice.new()
         25.times do
-            puts "\nRandom Position: #{dice.random_pos(100)}"
-            puts "Who Starts: #{dice.who_starts(10)}"
-            puts "Random Intelligence: #{dice.randomIntelligence()}"
-            puts "Random Strength: #{dice.randomStrenght()}"
-            puts "Resurrect Player: #{dice.resurrectPlayer()}"
-            puts "Weapons Reward: #{dice.weaponsReward()}"
-            puts "Shields Reward: #{dice.shieldsReward()}"
-            puts "Health Reward: #{dice.healthReward()}"
-            puts "Weapon Power: #{dice.weaponPower()}"
-            puts "Shield Power: #{dice.shieldPower()}"
-            puts "Numero de usos restante: #{dice.usesLeft()}"
-            puts "Intensidad: #{dice.intensity(5.0)}"
+            puts "\nRandom Position: #{Irrgarten::Dice.random_pos(100)}"
+            puts "Who Starts: #{Irrgarten::Dice.who_starts(10)}"
+            puts "Random Intelligence: #{Irrgarten::Dice.randomIntelligence()}"
+            puts "Random Strength: #{Irrgarten::Dice.randomStrenght()}"
+            puts "Resurrect Player: #{Irrgarten::Dice.resurrectPlayer()}"
+            puts "Weapons Reward: #{Irrgarten::Dice.weaponsReward()}"
+            puts "Shields Reward: #{Irrgarten::Dice.shieldsReward()}"
+            puts "Health Reward: #{Irrgarten::Dice.healthReward()}"
+            puts "Weapon Power: #{Irrgarten::Dice.weaponPower()}"
+            puts "Shield Power: #{Irrgarten::Dice.shieldPower()}"
+            puts "Numero de usos restante: #{Irrgarten::Dice.usesLeft()}"
+            puts "Intensidad: #{Irrgarten::Dice.intensity(5.0)}"
         end
         
     end
