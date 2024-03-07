@@ -58,20 +58,19 @@ public class TestP1 {
         System.out.println("log: " + juego.getLog());
         
         System.out.println("\nPrueba del dado");
-        Dice dado = new Dice();
         for(int i = 0 ; i < 25 ; i++) {
-            System.out.println("Posicion: " + dado.randomPos(100));
-            System.out.println("Inicia jugador: " + dado.whoStarts(10));
-            System.out.println("Con nivel de inteligencia: " + dado.randomIntelligence());
-            System.out.println("Con nivel de fuerza: " + dado.randomStrenght());
-            System.out.println("¿Resucita?: " + dado.resurrectPlayer());
-            System.out.println("Recompensa de armas: " + dado.weaponsReward());
-            System.out.println("Recompensa de escudos: " + dado.shieldsReward());
-            System.out.println("Recompensa de vida: " + dado.healthReward());
-            System.out.println("Poder del arma: " + dado.weaponPower());
-            System.out.println("Poder del escudo: " + dado.shieldPower());
-            System.out.println("Numero de usos restante: " + dado.usesLeft());
-            System.out.println("Intensidad: " + dado.intensity(5.0f));
+            System.out.println("Posicion: " + Dice.randomPos(100));
+            System.out.println("Inicia jugador: " + Dice.whoStarts(10));
+            System.out.println("Con nivel de inteligencia: " + Dice.randomIntelligence());
+            System.out.println("Con nivel de fuerza: " + Dice.randomStrenght());
+            System.out.println("¿Resucita?: " + Dice.resurrectPlayer());
+            System.out.println("Recompensa de armas: " + Dice.weaponsReward());
+            System.out.println("Recompensa de escudos: " + Dice.shieldsReward());
+            System.out.println("Recompensa de vida: " + Dice.healthReward());
+            System.out.println("Poder del arma: " + Dice.weaponPower());
+            System.out.println("Poder del escudo: " + Dice.shieldPower());
+            System.out.println("Numero de usos restante: " + Dice.usesLeft());
+            System.out.println("Intensidad: " + Dice.intensity(5.0f));
             System.out.println("\n");
         }
     }

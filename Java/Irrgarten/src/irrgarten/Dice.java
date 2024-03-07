@@ -24,51 +24,51 @@ public class Dice {
     
     private static final Random generator = new Random();
     
-    public int randomPos(int max) {
+    public static int randomPos(int max) {
         return generator.nextInt(max);
     }
     
-    public int whoStarts (int nplayers) {
+    public static int whoStarts (int nplayers) {
         return generator.nextInt(nplayers);
     }
     
-    public float randomIntelligence() {
+    public static float randomIntelligence() {
         return generator.nextFloat()*MAX_INTELLIGENCE;
     }
     
-    public float randomStrenght() {
+    public static float randomStrenght() {
         return generator.nextFloat()*MAX_STRENGTH;
     }
     
-    public boolean resurrectPlayer() {
+    public static boolean resurrectPlayer() {
         return generator.nextFloat() < RESURRECT_PROB;
     }
     
-    public int weaponsReward() {
+    public static int weaponsReward() {
         return generator.nextInt(WEAPONS_REWARD + 1);
     }
     
-    public int shieldsReward() {
+    public static int shieldsReward() {
         return generator.nextInt(SHIELDS_REWARD + 1);
     }
     
-    public int healthReward() {
+    public static int healthReward() {
         return generator.nextInt(HEALTH_REWARD + 1);
     }
     
-    public float weaponPower() {
+    public static float weaponPower() {
         return generator.nextFloat()*MAX_ATTACK;
     }
  
-    public float shieldPower() {
+    public static float shieldPower() {
         return generator.nextFloat()*MAX_SHIELD;
     }
     
-    public int usesLeft() {
+    public static int usesLeft() {
         return generator.nextInt(MAX_USES + 1);
     }
     
-    public float intensity(float competence) {
+    public static float intensity(float competence) {
         return generator.nextFloat()*competence;
     }
     
