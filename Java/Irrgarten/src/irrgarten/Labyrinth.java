@@ -26,11 +26,11 @@ public class Labyrinth {
     private Player[][] players;
     
     
-    public Labyrinth(int nr, int nc, int er, int ec){
-        nRows = nr;
-        nCols = nc;
-        exitRow = er;
-        exitCol = ec;
+    public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
+        this.nRows = nRows ;
+        this.nCols = nCols;
+        this.exitRow = exitRow;
+        this.exitCol = exitCol;
     }
     
     public void spreadPlayers(Player[] players){

@@ -17,10 +17,10 @@ public class Monster {
     private int col;
     
     
-    public Monster(String n, float i, float s){
-        name = n;
-        intelligence = i;
-        strength = s;
+    public Monster(String name, float intelligence, float strength){
+        this.name = name;
+        this.intelligence = intelligence;
+        this.strength = strength;
     }
     
     public boolean dead(){

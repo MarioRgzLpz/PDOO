@@ -57,8 +57,8 @@ public class TestP1 {
         System.out.println("ganador: " + juego.getWinner());
         System.out.println("log: " + juego.getLog());
         
-        System.out.println("\nPrueba del dado");
-        for(int i = 0 ; i < 25 ; i++) {
+        System.out.println("\n---------------Prueba del dado---------------");
+        for(int i = 0 ; i < 3 ; i++) {
             System.out.println("Posicion: " + Dice.randomPos(100));
             System.out.println("Inicia jugador: " + Dice.whoStarts(10));
             System.out.println("Con nivel de inteligencia: " + Dice.randomIntelligence());
@@ -73,5 +73,8 @@ public class TestP1 {
             System.out.println("Intensidad: " + Dice.intensity(5.0f));
             System.out.println("\n");
         }
+        
+        System.out.println("Probando la practica 2:\n");
+        
     }
 }

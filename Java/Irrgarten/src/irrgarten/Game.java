@@ -31,16 +31,68 @@ public class Game {
     }
     
     public GameState getGameState(){
-        String namesp = "";
-        String namesm = "";
+        String namesplayers = "";
+        String namesmonsters = "";
         for(Player player : players){
-            namesp += player.toString();
+            namesplayers += player.toString();
         }
         for(Monster monster : monsters){
-            namesm += monster.toString();
+            namesmonsters += monster.toString();
         }
-        return new GameState(labyrinth.toString(), namesp, namesm, currentPlayerIndex, this.finished(),log);
+        return new GameState(labyrinth.toString(), namesplayers, namesmonsters, currentPlayerIndex, this.finished(),log);
     }
     
-   
+    private void configureLabyrinth(){
+        throw new UnsupportedOperationException();    
+    }
+    
+    public void nextPlayer(){
+        currentPlayerIndex += 1;
+        currentPlayer = players.get(currentPlayerIndex);
+    }
+    
+    private Directions actualDirection(Directions preferredDirection){
+        throw new UnsupportedOperationException();
+    }
+    
+    private GameCharacter combat(Monster monster){
+        throw new UnsupportedOperationException();
+    }
+    
+    private void manageReward(GameCharacter winner){
+        throw new UnsupportedOperationException();
+    }
+    
+    private void manageResurrection(){
+        throw new UnsupportedOperationException();
+    }
+    
+    private void logPlayerWon(){
+        log += "Player wins the combat" + "\n";
+    }
+    
+    private void logMonsterWon(){
+        log += "Monster wins the combat" + "\n";
+    }
+    
+    private void logResurrected(){
+        log += "Player resurrects" + "\n";
+    }
+    
+    private void logPlayerSkipTurn(){
+        log += "Player lost the turn" + "\n";
+    }
+    
+    private void logPlayerNoOrders(){
+        log += "Player couldnt follow the orders" + "\n";
+    }
+    
+    private void logNoMonster(){
+        log += "Player get into an empty square" + "\n";
+    }
+    
+    private void logRounds(int rounds, int max){
+        log += "Max rounds achieved" + "\n";
+    }
+    
 }

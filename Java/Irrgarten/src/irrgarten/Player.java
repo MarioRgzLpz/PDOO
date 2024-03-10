@@ -26,11 +26,11 @@ public class Player {
     private ArrayList<Shield> shields = new ArrayList<>();
     
     
-    public Player(char n, float i, float s){
-        name = "Player #" + n;
-        number = n;
-        intelligence = i;
-        strength = s;
+    public Player(char number, float intelligence, float strength){
+        this.name = "Player #" + number;
+        this.number = number;
+        this.intelligence = intelligence;
+        this.strength = strength;
     }
     
     public void resurrect(){
