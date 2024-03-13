@@ -46,35 +46,21 @@ public class Labyrinth {
     }
     
     public String toString(){
-        StringBuilder result = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-        // Loop through each row and column in the labyrinth
+        // Recorre cada fila del laberinto
         for (int i = 0; i < nRows; i++) {
+            // Recorre cada columna del laberinto en la fila actual
             for (int j = 0; j < nCols; j++) {
-                // Append the character representing the cell in the labyrinth
-                result.append(labyrinth[i][j]);
-
-                // Check if there is a player in the current cell
-                if (players[i][j] != null) {
-                    result.append("P"); // Append 'P' to represent a player
-                } else {
-                    result.append(" "); // Append a space if no player is in the cell
-                }
-
-                // Check if there is a monster in the current cell
-                if (monsters[i][j] != null) {
-                    result.append("M"); // Append 'M' to represent a monster
-                } else {
-                    result.append(" "); // Append a space if no monster is in the cell
-                }
-
-                // Append a newline character to move to the next row
-                result.append("\n");
+                // Agrega el carácter en la posición actual al StringBuilder
+                sb.append(labyrinth[i][j]);
             }
+            // Agrega un salto de línea al final de cada fila
+            sb.append("\n");
         }
 
-        // Return the generated string
-        return result.toString();
+        // Devuelve la cadena de texto resultante
+        return sb.toString();
     }
     
     public void addMonster(int row, int col, Monster monster){
