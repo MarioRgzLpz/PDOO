@@ -9,6 +9,7 @@ package irrgarten;
  * @author mariorl
  */
 public class Monster {
+    private static int INITIAL_HEALTH = 5;
     private String name;
     private float intelligence;
     private float strength;
@@ -21,6 +22,7 @@ public class Monster {
         this.name = name;
         this.intelligence = intelligence;
         this.strength = strength;
+        health = INITIAL_HEALTH;
     }
     
     public boolean dead(){
@@ -44,7 +46,7 @@ public class Monster {
     }
     
     public String toString(){
-        return "Name: " + name + "\n" + "Intelligence: " + intelligence + "\n" + "Strength: " + strength + "\n" + "Health: " + health + "\n" + "Position: R_: " + row + " C_: " + col;
+        return "Name: " + name + "\n" + "Intelligence: " + intelligence + "\n" + "Strength: " + strength + "\n" + "Health: " + health + "\n" + "Position: (" + row + "," + col + ")";
     }
     
     private void gotWounded(){

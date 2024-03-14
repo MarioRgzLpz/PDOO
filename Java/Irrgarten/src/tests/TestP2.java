@@ -89,12 +89,12 @@ public class TestP2 {
         System.out.println("Probando la practica 2:\n");
         System.out.println("--------------Creando instancias de clase-------------");
         Monster unicorn = new Monster("Unicorn",7.0f,2.0f);
-        Monster minotaur = new Monster("Unicorn",4.0f,7.0f);
-        Monster dragon = new Monster("Unicorn",8.0f,9.0f);
+        Monster minotaur = new Monster("Minotaur",4.0f,7.0f);
+        Monster dragon = new Monster("Dragon",8.0f,9.0f);
         Player player0 = new Player('0',3.0f,7.0f);
         Player player1 = new Player('1',4.0f,6.0f);
         Player player2 = new Player('2',1.0f,9.0f);
-        Labyrinth labyrinth = new Labyrinth(10,10,8,9);
+        Labyrinth labyrinth = new Labyrinth(3,3,2,2);
         
         System.out.println("\n--------------Muestra de monstruos y jugadores----------------");
         System.out.println(unicorn.toString());
@@ -109,11 +109,24 @@ public class TestP2 {
         System.out.println("------------------------------");
         System.out.println(player2.toString());
         
-        System.out.println("\n--------------Muestra de setPos,getRow,getCol----------------");
+        System.out.println("\n--------------Muestra de funciones----------------");
         player0.setPos(3, 4);
+        System.out.println(player0.toString());
+        System.out.println("------------------------------");
         System.out.println("getRow " + player0.getRow());
         System.out.println("getCol " + player0.getCol());
-
+        System.out.println("Unicorn attack: " + unicorn.attack());
+        System.out.println("Unicorn dead: " + unicorn.dead());
+        System.out.println("Player0 attack: " + player0.attack());
+        System.out.println("Player0 dead: " + player0.dead());
+        
+        System.out.println("\n--------------Muestra de laberinto----------------");
+        System.out.println(labyrinth.toString());
+        System.out.println("\n--------------Añadimos un monstruo----------------");
+        labyrinth.addMonster(2, 2, minotaur);
+        System.out.println(labyrinth.toString());
+        labyrinth.addMonster(1, 1, unicorn);
+        System.out.println(labyrinth.toString());
         Game game = new Game(3);
         
         

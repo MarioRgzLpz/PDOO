@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Player {
     private static int MAX_WEAPONS = 2;
     private static int MAX_SHIELDS = 3;
-    private static int MAX_HEALTH = 10;
+    private static int INITIAL_HEALTH = 10;
     private static int HITS2LOSE = 3;
     private String name;
     private char number;
@@ -31,6 +31,7 @@ public class Player {
         this.number = number;
         this.intelligence = intelligence;
         this.strength = strength;
+        health = INITIAL_HEALTH;
     }
     
     public void resurrect(){
@@ -81,7 +82,7 @@ public class Player {
 
     public String toString(){
         return "Name: " + name + "\n" + "Number: " + number + "\n" + "Intelligence: " + intelligence + "\n" 
-                + "Strength: " + strength + "\n" + "Health: " + health + "\n" + "Position: R_: " + row + " C_: " + col 
+                + "Strength: " + strength + "\n" + "Health: " + health + "\n" + "Position: (" + row + "," + col + ")"
                 + "\n" + "ConsecutiveHits: " + consecutiveHits + "\n" + "Weapons: " + weapons.toString() + "\n" + "Shield: " + shields.toString();
     }    
     

@@ -31,6 +31,20 @@ public class Labyrinth {
         this.nCols = nCols;
         this.exitRow = exitRow;
         this.exitCol = exitCol;
+        
+        monsters = new Monster[nRows][nCols];
+        players = new Player[nRows][nCols];
+        labyrinth = new char[nRows][nCols];
+        for (int i = 0; i < nRows; i++) {
+            for (int j = 0; j < nCols; j++) {
+                labyrinth[i][j] = EMPTY_CHAR;
+                if(i==0 || j==0 || i==nRows-1 || j==nCols-1){
+                    labyrinth[i][j] = BLOCK_CHAR = 'X';
+                }
+                if(i==exitRow && j==exitCol)
+                    labyrinth[i][j] = EXIT_CHAR;
+            }
+        }
     }
     
     public void spreadPlayers(Player[] players){
@@ -45,22 +59,22 @@ public class Labyrinth {
         }
     }
     
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
+    public String toString() {
+        String result = "";
 
         // Recorre cada fila del laberinto
         for (int i = 0; i < nRows; i++) {
             // Recorre cada columna del laberinto en la fila actual
             for (int j = 0; j < nCols; j++) {
-                // Agrega el carácter en la posición actual al StringBuilder
-                sb.append(labyrinth[i][j]);
+                // Agrega el carácter en la posición actual a la cadena de texto resultante
+                result += labyrinth[i][j] + "   ";
             }
             // Agrega un salto de línea al final de cada fila
-            sb.append("\n");
+            result += "\n";
         }
 
         // Devuelve la cadena de texto resultante
-        return sb.toString();
+        return result;
     }
     
     public void addMonster(int row, int col, Monster monster){
@@ -130,7 +144,7 @@ public class Labyrinth {
     }
     
     private boolean canStepOn(int row, int col){
-        if(this.emptyPos(row, col) && this.posOK(row, col) && this.monsterPos(row, col) && this.exitPos(row, col)){
+        if(this.posOK(row, col) && (this.emptyPos(row, col) || this.monsterPos(row, col) || this.exitPos(row, col))){
             return true;
         }
         else{
@@ -181,6 +195,22 @@ public class Labyrinth {
     
     private Monster putPlayer2D(int oldRow, int oldCol, int row, int col, Player player){
         throw new UnsupportedOperationException();
+    }
+    
+    // main solo para probar la clase labyrinth
+    public static void main(String[] args) {
+        Labyrinth labyrinth = new Labyrinth(5, 5, 2, 2);
+        Monster monstruo = new Monster("unicorn", 9.0f,3.0f);
+        System.out.println(labyrinth.toString());
+        labyrinth.addMonster(1, 1, monstruo);
+        System.out.println(labyrinth.toString());
+        int posicion[] = labyrinth.randomEmptyPos();
+        System.out.println("Random empty position: (" + posicion[0] + ", " + posicion[1] + ")");
+        System.out.println(labyrinth.canStepOn(posicion[0], posicion[1]));
+        int newposicion[] = labyrinth.dir2Pos(4, 3, Directions.DOWN);
+        System.out.println("New position: (" + newposicion[0] + ", " + newposicion[1] + ")");
+        System.out.println(labyrinth.canStepOn(newposicion[0], newposicion[1]));
+        
     }
     
 }
