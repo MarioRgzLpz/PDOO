@@ -28,7 +28,7 @@ module Irrgarten
         end
 
         def defend
-
+            
         end
 
         def set_pos(a_row,a_col)
@@ -54,7 +54,7 @@ module Irrgarten
     end
 end
 
-monstruo = Irrgarten::Monster.new("Unicorn", 3, 5)
+monstruo = Irrgarten::Monster.new("Unicorn", Irrgarten::Dice.random_intelligence, Irrgarten::Dice.random_strenght)
 
 monstruo.set_pos(2,2)
 

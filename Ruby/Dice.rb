@@ -22,39 +22,39 @@ module Irrgarten
             return @@generator.rand(nplayers)
         end
         
-        def self.randomIntelligence()
+        def self.random_intelligence()
             return @@generator.rand() * @@MAX_INTELLIGENCE
         end
 
-        def self.randomStrenght()
+        def self.random_strenght()
             return @@generator.rand() * @@MAX_STRENGTH
         end
 
-        def self.resurrectPlayer()
+        def self.resurrect_player()
             return @@generator.rand() < @@RESURRECT_PROB
         end
 
-        def self.weaponsReward()
+        def self.weapons_reward()
             return @@generator.rand(@@WEAPONS_REWARD + 1)
         end
 
-        def self.shieldsReward()
+        def self.shields_reward()
             return @@generator.rand(@@SHIELDS_REWARD + 1)
         end
 
-        def self.healthReward()
+        def self.health_reward()
             return @@generator.rand(@@HEALTH_REWARD + 1)
         end
 
-        def self.weaponPower()
+        def self.weapon_power()
             return @@generator.rand() * @@MAX_ATTACK
         end
 
-        def self.shieldPower()
+        def self.shield_power()
             return @@generator.rand() * @@MAX_SHIELD
         end
 
-        def self.usesLeft()
+        def self.uses_left()
             return @@generator.rand(@@MAX_USES + 1)
         end
 
