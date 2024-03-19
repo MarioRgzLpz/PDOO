@@ -38,11 +38,11 @@ module Irrgarten
 
 
         def to_s
-            "Name: #{@name}\n" +
+            "\nName: #{@name}\n" +
             "Intelligence: #{@intelligence}\n" +
             "Strength: #{@strength}\n" +
             "Health: #{@health}\n" +
-            "Position: (#{@row},#{@col})"
+            "Position: (#{@row},#{@col})\n"
         end
 
         

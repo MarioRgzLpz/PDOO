@@ -22,39 +22,39 @@ module Irrgarten
             return @@generator.rand(nplayers)
         end
         
-        def self.random_intelligence()
+        def self.random_intelligence
             return @@generator.rand() * @@MAX_INTELLIGENCE
         end
 
-        def self.random_strenght()
+        def self.random_strenght
             return @@generator.rand() * @@MAX_STRENGTH
         end
 
-        def self.resurrect_player()
+        def self.resurrect_player
             return @@generator.rand() < @@RESURRECT_PROB
         end
 
-        def self.weapons_reward()
+        def self.weapons_reward
             return @@generator.rand(@@WEAPONS_REWARD + 1)
         end
 
-        def self.shields_reward()
+        def self.shields_reward
             return @@generator.rand(@@SHIELDS_REWARD + 1)
         end
 
-        def self.health_reward()
+        def self.health_reward
             return @@generator.rand(@@HEALTH_REWARD + 1)
         end
 
-        def self.weapon_power()
+        def self.weapon_power
             return @@generator.rand() * @@MAX_ATTACK
         end
 
-        def self.shield_power()
+        def self.shield_power
             return @@generator.rand() * @@MAX_SHIELD
         end
 
-        def self.uses_left()
+        def self.uses_left
             return @@generator.rand(@@MAX_USES + 1)
         end
 
@@ -62,9 +62,9 @@ module Irrgarten
             return @@generator.rand() * competence
         end
 
-        def self.discardElement(usesLeft)
-            probabilidadDiscard = (@@MAX_USES - usesLeft).to_f / @@MAX_USES
-            return @@generator.rand() < probabilidadDiscard
+        def self.discard_element(uses_left)
+            probabilidad_discard = (@@MAX_USES - uses_left).to_f / @@MAX_USES
+            return @@generator.rand() < probabilidad_discard
         end
     end
 end

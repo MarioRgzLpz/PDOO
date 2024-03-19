@@ -20,8 +20,8 @@ module Irrgarten
             @row = nil
             @col = nil
             @consecutive_hits=0
-            @weapons
-            @shields
+            @weapons = nil
+            @shields = nil
         end
 
         attr_reader :row, :col
@@ -60,11 +60,11 @@ module Irrgarten
         end
 
         def to_s
-            "Name: #{@name}\n" +
+            "\nName: #{@name}\n" +
             "Intelligence: #{@intelligence}\n" +
             "Strength: #{@strength}\n" +
             "Health: #{@health}\n" +
-            "Position: (#{@row},#{@col})"
+            "Position: (#{@row},#{@col})\n"
         end
 
         def receive_weapon(w)

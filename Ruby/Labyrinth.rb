@@ -16,20 +16,24 @@ module Irrgarten
         @@COL = 1
 
         def initialize(a_n_rows, a_n_cols, a_exit_row, a_exit_col)
-            @nRows = a_n_rows
-            @nCols = a_n_cols
-            @exitRow = a_exit_row
-            @exitCol = a_exit_col
-            @monsters = Array.new(@nRows, Array.new(@nCols))
-            @players = Array.new(@nRows, Array.new(@nCols))
+            @n_rows = a_n_rows
+            @n_cols = a_n_cols
+            @exit_row = a_exit_row
+            @exit_col = a_exit_col
+            @monsters = Array.new(@n_rows, Array.new(@n_cols))
+            @players = Array.new(@n_rows, Array.new(@n_cols))
             @labyrinth = Array.new(a_n_rows) { Array.new(a_n_cols, @@EMPTY_CHAR) }
         
-            @nRows.times do |i|
-              @nCols.times do |j|
-                @labyrinth[i][j] = @@BLOCK_CHAR if i == 0 || j == 0 || i == @nRows - 1 || j == @nCols - 1
+            @n_rows.times do |i|
+              @n_cols.times do |j|
+                @labyrinth[i][j] = @@EMPTY_CHAR
                 @labyrinth[i][j] = @@EXIT_CHAR if i == @exitRow && j == @exitCol
               end
             end
+        end
+
+        def set_square(row, col, value)
+            @labyrinth[row][col] = value
         end
 
         def spread_players(players)
@@ -37,14 +41,14 @@ module Irrgarten
         end
     
         def have_a_winner
-            !@players[exit_row][exit_col].nil?
+            !@players[@exit_row][@exit_col].nil?
         end
     
         def to_s
         result = ""
     
-        @nRows.times do |i|
-            @nCols.times do |j|
+        @n_rows.times do |i|
+            @n_cols.times do |j|
             result += "#{@labyrinth[i][j]}   "
             end
             result += "\n"
@@ -74,7 +78,7 @@ module Irrgarten
         end
     
         def pos_ok(row, col)
-            row >= 0 && row < @nRows && col >= 0 && col < @nCols
+            row >= 0 && row < @n_rows && col >= 0 && col < @n_cols
         end
     
         def empty_pos(row, col)
@@ -122,9 +126,9 @@ module Irrgarten
         end
     
         def random_empty_pos
-            row = Dice.random_pos(@nRows)
-            col = Dice.random_pos(@nCols)
-            row, col = Dice.random_pos(@nRows), Dice.random_pos(@nCols) until empty_pos(row, col)
+            row = Dice.random_pos(@n_rows)
+            col = Dice.random_pos(@n_cols)
+            row, col = Dice.random_pos(@n_rows), Dice.random_pos(@n_cols) until empty_pos(row, col)
             return [row, col]
         end
     
