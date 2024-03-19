@@ -4,6 +4,9 @@
  */
 package irrgarten;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 /**
  *
@@ -18,8 +21,38 @@ public class Game {
     private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Monster> monsters = new ArrayList<>();
     
-    public Game(int nplayers){
-        labyrinth = new Labyrinth(10,10,8,9);
+    public Game(int nPlayers){
+        
+        labyrinth = new Labyrinth(5,5,4,4);
+        
+        // Crear jugadores 
+        
+        for (int i = 1; i <= nPlayers; i++) {
+            Player player = new Player((char)('1' + i - 1), Dice.randomIntelligence(), Dice.randomStrenght());
+            players.add(player);
+        }
+
+        // Crear varios monstruos
+        
+        for (int i = 0; i < nPlayers; i++) {
+            Monster monster = new Monster("Monster " + (i + 1), Dice.randomIntelligence(), Dice.randomStrenght());
+            monsters.add(monster);
+        }
+
+        // Determinar quién va a empezar
+        currentPlayerIndex = Dice.whoStarts(nPlayers);
+        currentPlayer = players.get(currentPlayerIndex);
+
+        // Instanciar un laberinto para inicializar el atributo labyrinth
+
+        // Inicializar el resto de atributos con valores iniciales apropiados
+        log = "";
+
+        // Llamar al método que configura el laberinto
+        
+        configureLabyrinth();
+
+        // Llamar al método que reparte los jugadores por el laberinto
     }
     
     public boolean finished(){
@@ -42,8 +75,25 @@ public class Game {
         return new GameState(labyrinth.toString(), namesplayers, namesmonsters, currentPlayerIndex, this.finished(),log);
     }
     
-    private void configureLabyrinth(){
-        throw new UnsupportedOperationException();    
+    private void configureLabyrinth() {
+        // Leer las dimensiones del laberinto
+        int nRows = 5;
+        int nCols = 5;
+
+        char[][] manualLabyrinth = {
+            {'X', 'X', 'X', 'X', 'X'},
+            {'X', '-', '-', '-', 'X'},
+            {'X', '-', 'X', '-', 'X'},
+            {'X', '-', '-', 'E', 'X'},
+            {'X', 'X', 'X', 'X', 'X'}
+        };
+
+        // Leer el laberinto desde el archivo
+        for (int i = 0; i < nRows; i++) {
+            for (int j = 0; j < nCols; j++) {
+                labyrinth.setLabyrinth(i, j, manualLabyrinth[i][j]);
+            }
+        }
     }
     
     public void nextPlayer(){

@@ -62,7 +62,7 @@ public class TestP2 {
         
         
         System.out.println("\n---------------Estado actual del juego------------------");
-        System.out.println("labyrinth: " + juego.getLabyrinthv());
+        System.out.println("labyrinth: " + juego.getLabyrinth());
         System.out.println("players: " + juego.getPlayers());
         System.out.println("monsters: " + juego.getMonsters());
         System.out.println("currentPlayer: " + juego.getCurrentPlayer());
@@ -128,7 +128,12 @@ public class TestP2 {
         labyrinth.addMonster(1, 1, unicorn);
         System.out.println(labyrinth.toString());
         Game game = new Game(3);
-        
+        System.out.println("\n--------------Muestra del juego----------------");
+        GameState estado = game.getGameState();
+        System.out.println(estado.getMonsters().toString());
+        System.out.println(estado.getPlayers().toString());
+        System.out.println(estado.getLabyrinth().toString());
+
         
     }
 }

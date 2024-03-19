@@ -81,9 +81,9 @@ public class Player {
     }
 
     public String toString(){
-        return "Name: " + name + "\n" + "Number: " + number + "\n" + "Intelligence: " + intelligence + "\n" 
+        return  "\n" + "Name: " + name + "\n" + "Number: " + number + "\n" + "Intelligence: " + intelligence + "\n" 
                 + "Strength: " + strength + "\n" + "Health: " + health + "\n" + "Position: (" + row + "," + col + ")"
-                + "\n" + "ConsecutiveHits: " + consecutiveHits + "\n" + "Weapons: " + weapons.toString() + "\n" + "Shield: " + shields.toString();
+                + "\n" + "ConsecutiveHits: " + consecutiveHits + "\n" + "Weapons: " + weapons.toString() + "\n" + "Shield: " + shields.toString() + "\n";
     }    
     
     private void receiveWeapon(Weapon w){

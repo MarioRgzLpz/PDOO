@@ -46,7 +46,7 @@ public class Monster {
     }
     
     public String toString(){
-        return "Name: " + name + "\n" + "Intelligence: " + intelligence + "\n" + "Strength: " + strength + "\n" + "Health: " + health + "\n" + "Position: (" + row + "," + col + ")";
+        return "\n" + "Name: " + name + "\n" + "Intelligence: " + intelligence + "\n" + "Strength: " + strength + "\n" + "Health: " + health + "\n" + "Position: (" + row + "," + col + ")" + "\n";
     }
     
     private void gotWounded(){

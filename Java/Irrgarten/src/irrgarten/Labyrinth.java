@@ -38,16 +38,17 @@ public class Labyrinth {
         for (int i = 0; i < nRows; i++) {
             for (int j = 0; j < nCols; j++) {
                 labyrinth[i][j] = EMPTY_CHAR;
-                if(i==0 || j==0 || i==nRows-1 || j==nCols-1){
-                    labyrinth[i][j] = BLOCK_CHAR = 'X';
-                }
                 if(i==exitRow && j==exitCol)
                     labyrinth[i][j] = EXIT_CHAR;
             }
         }
     }
     
-    public void spreadPlayers(Player[] players){
+    public void setLabyrinth(int row, int col, char bloque){
+        labyrinth[row][col] = bloque;
+    }
+    
+    public void spreadPlayers(Player[][] players){
         throw new UnsupportedOperationException();
     }
     

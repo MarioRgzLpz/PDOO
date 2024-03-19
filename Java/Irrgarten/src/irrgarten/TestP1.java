@@ -50,7 +50,7 @@ public class TestP1 {
         
         
         System.out.println("\n---------------Estado actual del juego------------------");
-        System.out.println("labyrinth: " + juego.getLabyrinthv());
+        System.out.println("labyrinth: " + juego.getLabyrinth());
         System.out.println("players: " + juego.getPlayers());
         System.out.println("monsters: " + juego.getMonsters());
         System.out.println("currentPlayer: " + juego.getCurrentPlayer());
