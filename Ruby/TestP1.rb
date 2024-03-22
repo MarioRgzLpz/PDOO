@@ -47,7 +47,7 @@ class TestP1
         puts "¿Tras proteger se descarta? " + shield1.discard.to_s
 
         puts "\n--------------Estado actual del juego-----------------"
-        puts "labyrinth: " + juego.get_labyrinthv
+        puts "labyrinth: " + juego.get_labyrinth
         puts "players: " + juego.get_players
         puts "monsters: " + juego.get_monsters
         puts "currentplayer: " + juego.get_current_player.to_s

@@ -3,17 +3,19 @@
 module Irrgarten
     class GameState
 
-        def initialize(l, pl, m, cp, w, lg)
-            @labyrinthv = l
-            @players = pl
-            @monsters = m
-            @currentPlayer = cp
-            @winner = w
-            @log = lg
+        def initialize(a_labyrinth, a_players, a_monsters, a_current_player, a_winner, a_log)
+            @labyrinth = a_labyrinth
+            @players = a_players
+            @monsters = a_monsters
+            @current_player = a_current_player
+            @winner = a_winner
+            @log = a_log
         end
+
+        attr_reader :labyrinth, :players, :monsters, :current_player, :winner, :log
         
-        def get_labyrinthv
-            @labyrinthv
+        def get_labyrinth
+            @labyrinth
         end
         
         def get_players
@@ -25,7 +27,7 @@ module Irrgarten
         end
         
         def get_current_player
-            @currentPlayer
+            @current_player
         end
         
         def get_winner

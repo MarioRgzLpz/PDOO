@@ -12,9 +12,9 @@ public class Shield {
     private float protection;
     private int uses;
     
-    public Shield(float p, int u){
-        protection = p;
-        uses = u;
+    public Shield(float protection, int uses){
+        this.protection = protection;
+        this.uses = uses;
     }
     
     public float protect(){

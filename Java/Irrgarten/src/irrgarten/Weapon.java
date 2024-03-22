@@ -14,9 +14,9 @@ public class Weapon {
     private float power;
     private int uses;
     
-    public Weapon(float p, int u){
-        power = p;
-        uses = u;
+    public Weapon(float power, int uses){
+        this.power = power;
+        this.uses = uses;
     }
     
     public float attack(){
