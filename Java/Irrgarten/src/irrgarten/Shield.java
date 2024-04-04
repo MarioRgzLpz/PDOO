@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package irrgarten;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -27,7 +28,9 @@ public class Shield {
     }
     
     public String toString(){
-        return "S[" + protection + "," + uses + "]";
+        DecimalFormat formato = new DecimalFormat("#.###");
+        String formatprotection = formato.format(protection);
+        return "S[" + formatprotection + "," + uses + "]";
     }
     
     public boolean discard() {

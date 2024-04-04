@@ -130,9 +130,9 @@ public class TestP2 {
         Game game = new Game(3);
         System.out.println("\n--------------Muestra del juego----------------");
         GameState estado = game.getGameState();
-        System.out.println(estado.getMonsters().toString());
-        System.out.println(estado.getPlayers().toString());
-        System.out.println(estado.getLabyrinth().toString());
+        System.out.println(estado.getMonsters());
+        System.out.println(estado.getPlayers());
+        System.out.println(estado.getLabyrinth());
 
         
     }

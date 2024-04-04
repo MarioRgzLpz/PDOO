@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package irrgarten;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -58,14 +60,21 @@ public class Player {
     }
     
     public boolean dead(){
-        if (health <= 0)
-            return true;
-        else
-            return false;
+        return health <= 0;
     }
     
-    public Directions move(Directions direction, Directions[] validMoves){
-        throw new UnsupportedOperationException();
+    public Directions move(Directions direction, ArrayList<Directions> validMoves){
+        int size = validMoves.size();
+        boolean contained = validMoves.contains(direction);
+        
+        if(size > 0 && !contained){
+            Directions firstElement = validMoves.get(0);
+            return firstElement;
+        }
+        else{
+            return direction;
+        }
+        
     }
     
     public float attack() {
@@ -77,21 +86,62 @@ public class Player {
     }
     
     public void receiveReward(){
-        throw new UnsupportedOperationException();
+        int wReward = Dice.weaponsReward();
+        int sReward = Dice.shieldsReward();
+        
+        while(wReward >= 1){
+            Weapon wnew = newWeapon();
+            receiveWeapon(wnew);
+            wReward-=1;
+        }
+        while(sReward >= 1){
+            Shield snew = newShield();
+            receiveShield(snew);
+            sReward-=1;
+        }
+        int extraHealth = Dice.healthReward();
+        health += extraHealth;
     }
 
     public String toString(){
-        return  "\n" + "Name: " + name + "\n" + "Number: " + number + "\n" + "Intelligence: " + intelligence + "\n" 
-                + "Strength: " + strength + "\n" + "Health: " + health + "\n" + "Position: (" + row + "," + col + ")"
+        DecimalFormat formato = new DecimalFormat("#.###");
+        String formatstrength = formato.format(strength);
+        String formatintelligence = formato.format(intelligence);
+        return  "\n" + "Name: " + name + "\n" + "Number: " + number + "\n" + "Intelligence: " + formatintelligence + "\n" 
+                + "Strength: " + formatstrength + "\n" + "Health: " + health + "\n" + "Position: (" + row + "," + col + ")"
                 + "\n" + "ConsecutiveHits: " + consecutiveHits + "\n" + "Weapons: " + weapons.toString() + "\n" + "Shield: " + shields.toString() + "\n";
     }    
     
     private void receiveWeapon(Weapon w){
-        throw new UnsupportedOperationException();
+        Iterator<Weapon> iterator = weapons.iterator();
+        while (iterator.hasNext()) {
+            Weapon weapon = iterator.next();
+            boolean discard = weapon.discard();
+            if (discard) {
+                iterator.remove(); // Remove the weapon using the iterator
+            }
+        }
+
+        int size = weapons.size();
+        if (size < MAX_WEAPONS) {
+            weapons.add(w);
+        }
     }
     
     private void receiveShield(Shield s){
-        throw new UnsupportedOperationException();
+        Iterator<Shield> iterator = shields.iterator();
+        while (iterator.hasNext()) {
+            Shield shield = iterator.next();
+            boolean discard = shield.discard();
+            if (discard) {
+                iterator.remove(); // Remove the shield using the iterator
+            }
+        }
+
+        int size = shields.size();
+        if (size < MAX_SHIELDS) {
+            shields.add(s);
+        }
     }
     
     private Weapon newWeapon() {
@@ -127,7 +177,26 @@ public class Player {
     }
     
     private boolean manageHit(float receivedAttack){
-         throw new UnsupportedOperationException();
+         float defense = defensiveEnergy();
+         if(defense < receivedAttack){
+             gotWounded();
+             incConsecutiveHits();
+         }
+         else{
+             resetHits();
+         }
+         
+         boolean lose = false;
+         
+         if(consecutiveHits == HITS2LOSE || dead()){
+             resetHits();
+             lose = true;
+         }
+         else {
+             lose = false;
+         }
+         
+         return lose;
     }
     
     private void resetHits(){

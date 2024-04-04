@@ -23,12 +23,18 @@ public class Game {
     
     public Game(int nPlayers){
         
-        labyrinth = new Labyrinth(5,5,4,4);
+        int nRows = 9;
+        int nCols = 9;
+        int exitRow = 7;
+        int exitCol = 8;
+
+        labyrinth = new Labyrinth(nRows,nCols,exitRow,exitCol);
         
         // Crear jugadores 
         
         for (int i = 1; i <= nPlayers; i++) {
             Player player = new Player((char)('1' + i - 1), Dice.randomIntelligence(), Dice.randomStrenght());
+            player.receiveReward();
             players.add(player);
         }
 
@@ -42,8 +48,6 @@ public class Game {
         // Determinar quién va a empezar
         currentPlayerIndex = Dice.whoStarts(nPlayers);
         currentPlayer = players.get(currentPlayerIndex);
-
-        // Instanciar un laberinto para inicializar el atributo labyrinth
 
         // Inicializar el resto de atributos con valores iniciales apropiados
         log = "";
@@ -59,8 +63,36 @@ public class Game {
         return labyrinth.haveAWinner();
     }
     
-    public boolean nextStep(Directions preferredDirections){
-        throw new UnsupportedOperationException();
+    public boolean nextStep(Directions preferredDirection){
+        log = "";
+        boolean dead = currentPlayer.dead();
+        if(!dead){
+            Directions direction = actualDirection(preferredDirection);
+            if(direction != preferredDirection){
+                logPlayerNoOrders();
+            }
+
+            Monster monster = labyrinth.putPlayer(direction,currentPlayer);
+            
+            if(monster == null){
+                logNoMonster();
+            }
+            else{
+                GameCharacter winner = combat(monster);
+                manageReward(winner);
+            }
+        }
+        else{
+            manageResurrection();
+        }
+        
+        boolean endGame = finished();
+        
+        if(!endGame){
+            nextPlayer();
+        }
+        
+        return endGame;
     }
     
     public GameState getGameState(){
@@ -76,49 +108,83 @@ public class Game {
     }
     
     private void configureLabyrinth() {
-        // Leer las dimensiones del laberinto
-        int nRows = 5;
-        int nCols = 5;
+        
+        labyrinth.addBlock(Orientation.HORIZONTAL, 0, 0, 9);
+        labyrinth.addBlock(Orientation.HORIZONTAL, 8, 0, 9);
+        labyrinth.addBlock(Orientation.HORIZONTAL, 5, 1, 2);
+        labyrinth.addBlock(Orientation.HORIZONTAL, 6, 2, 3);
+        labyrinth.addBlock(Orientation.HORIZONTAL, 2, 4, 2);
+        labyrinth.addBlock(Orientation.HORIZONTAL, 4, 4, 2);
+        labyrinth.addBlock(Orientation.VERTICAL, 1, 0, 5);
+        labyrinth.addBlock(Orientation.VERTICAL, 2, 2, 3);
+        labyrinth.addBlock(Orientation.VERTICAL, 1, 8, 6);
+        labyrinth.addBlock(Orientation.VERTICAL, 2, 6, 7);
+        
+        labyrinth.addMonster(4, 1, monsters.get(0));
+        labyrinth.addMonster(7, 7, monsters.get(1));
+        labyrinth.addMonster(3, 4, monsters.get(2));
+        
+        labyrinth.spreadPlayers(players);
 
-        char[][] manualLabyrinth = {
-            {'X', 'X', 'X', 'X', 'X'},
-            {'X', '-', '-', '-', 'X'},
-            {'X', '-', 'X', '-', 'X'},
-            {'X', '-', '-', 'E', 'X'},
-            {'X', 'X', 'X', 'X', 'X'}
-        };
-
-        // Leer el laberinto desde el archivo
-        for (int i = 0; i < nRows; i++) {
-            for (int j = 0; j < nCols; j++) {
-                labyrinth.setLabyrinth(i, j, manualLabyrinth[i][j]);
-            }
-        }
     }
     
     public void nextPlayer(){
-        currentPlayerIndex += 1;
+        int index = (currentPlayerIndex + 1) % players.size();
+        currentPlayerIndex = index;
         currentPlayer = players.get(currentPlayerIndex);
     }
     
     private Directions actualDirection(Directions preferredDirection){
-        throw new UnsupportedOperationException();
+        int currentRow = currentPlayer.getRow();
+        int currentCol = currentPlayer.getCol();
+        ArrayList<Directions> validMoves = labyrinth.validMoves(currentRow, currentCol);
+        return currentPlayer.move(preferredDirection, validMoves);
     }
     
     private GameCharacter combat(Monster monster){
-        throw new UnsupportedOperationException();
+        int rounds = 0;
+        GameCharacter winner = GameCharacter.PLAYER;
+        float playerAttack = currentPlayer.attack();
+        boolean lose = monster.defend(playerAttack);
+        while(!lose && (rounds < MAX_ROUNDS)){
+            winner = GameCharacter.MONSTER;
+            rounds++;
+            float monsterAttack = monster.attack();
+            lose = currentPlayer.defend(monsterAttack);
+            if(!lose){
+                playerAttack = currentPlayer.attack();
+                winner = GameCharacter.PLAYER;
+                lose = monster.defend(playerAttack);
+            }
+        }
+        logRounds(rounds,MAX_ROUNDS);
+        return winner;
     }
     
     private void manageReward(GameCharacter winner){
-        throw new UnsupportedOperationException();
+        if(winner == GameCharacter.PLAYER){
+            currentPlayer.receiveReward();
+            logPlayerWon();
+        }
+        else{
+            logMonsterWon();
+        }
     }
     
     private void manageResurrection(){
-        throw new UnsupportedOperationException();
+        boolean resurrect = Dice.resurrectPlayer();
+        if(resurrect){
+            currentPlayer.resurrect();
+            logResurrected();
+        }
+        else{
+            logPlayerSkipTurn();
+        }
+            
     }
     
     private void logPlayerWon(){
-        log += "Player wins the combat" + "\n";
+        log += "Player " + (currentPlayerIndex+1) + " wins the combat" + "\n" + currentPlayer;
     }
     
     private void logMonsterWon(){
@@ -126,23 +192,23 @@ public class Game {
     }
     
     private void logResurrected(){
-        log += "Player resurrects" + "\n";
+        log +=  "Player " + (currentPlayerIndex+1) +  " resurrects" + "\n";
     }
     
     private void logPlayerSkipTurn(){
-        log += "Player lost the turn" + "\n";
+        log += "Player " + (currentPlayerIndex+1) + " lost the turn" + "\n";
     }
     
     private void logPlayerNoOrders(){
-        log += "Player couldnt follow the orders" + "\n";
+        log += "Player " + (currentPlayerIndex+1) + " couldnt follow the orders" + "\n";
     }
     
     private void logNoMonster(){
-        log += "Player get into an empty square" + "\n";
+        log += "Player " + (currentPlayerIndex+1) + " get into an empty square" + "\n";
     }
     
     private void logRounds(int rounds, int max){
-        log += "Max rounds achieved" + "\n";
+        log += "Reached round " + rounds + ", Max rounds  " + max + "\n";
     }
     
 }

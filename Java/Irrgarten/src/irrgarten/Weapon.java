@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package irrgarten;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -28,7 +29,9 @@ public class Weapon {
     }
     
     public String toString(){
-        return "W[" + power + "," + uses + "]";
+        DecimalFormat formato = new DecimalFormat("#.###");
+        String formatpower = formato.format(power);
+        return "W[" + formatpower + "," + uses + "]";
     }
     
     public boolean discard() {
