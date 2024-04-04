@@ -38,9 +38,8 @@ public class Labyrinth {
         for (int i = 0; i < nRows; i++) {
             for (int j = 0; j < nCols; j++) {
                 labyrinth[i][j] = EMPTY_CHAR;
-                if(i==exitRow && j==exitCol)
-                    labyrinth[i][j] = EXIT_CHAR;
             }
+            labyrinth[exitRow][exitCol] = EXIT_CHAR;
         }
     }
     
@@ -99,58 +98,27 @@ public class Labyrinth {
     }
     
     private boolean posOK(int row, int col){
-        if(row >= 0 && row < nRows && col >= 0 && col < nCols){
-            return true;
-        }
-        else{
-            return false;
-        }
-                   
+        return (row >= 0 && row < nRows && col >= 0 && col < nCols){       
     }
     
     private boolean emptyPos(int row, int col){
-        if(labyrinth[row][col] == '-'){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return labyrinth[row][col] == '-';
     }
     
     private boolean monsterPos(int row, int col){
-        if(labyrinth[row][col] == 'M'){
-            return true;
-        }
-        else {
-            return false;
-        } 
+        return labyrinth[row][col] == 'M';
     }
     
     private boolean exitPos(int row, int col){
-        if(labyrinth[row][col] == 'E'){
-            return true;
-        }
-        else {
-            return false;
-        }    
+        return labyrinth[row][col] == 'E';  
     }
     
     private boolean combatPos(int row, int col){
-        if(labyrinth[row][col] == 'C'){
-            return true;
-        }
-        else {
-            return false;
-        }    
+        return labyrinth[row][col] == 'C';
     }
     
     private boolean canStepOn(int row, int col){
-        if(this.posOK(row, col) && (this.emptyPos(row, col) || this.monsterPos(row, col) || this.exitPos(row, col))){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return this.posOK(row, col) && (this.emptyPos(row, col) || this.monsterPos(row, col) || this.exitPos(row, col));
     }
     
     private void updateOldPos(int row, int col){
@@ -190,8 +158,7 @@ public class Labyrinth {
             row = Dice.randomPos(nRows);
             col = Dice.randomPos(nCols);
         }
-        int[] posicion = new int[]{row, col};
-        return posicion;
+        return new int[]{row, col};
     }
     
     private Monster putPlayer2D(int oldRow, int oldCol, int row, int col, Player player){
