@@ -37,7 +37,12 @@ module Irrgarten
         end
 
         def spread_players(players)
-            raise NotImplementedError.new("spread_players method is not implemented yet.")
+            players.each do |player|
+                pos = random_empty_pos
+                old_row = -1
+                old_col = -1
+                monster = put_player_2D(old_row,old_col,pos[@@ROW], pos[@@COL], player)
+            end
         end
     
         def have_a_winner
@@ -66,11 +71,30 @@ module Irrgarten
         end
     
         def put_player(direction, player)
-            raise NotImplementedError.new("put_player method is not implemented yet.")
+            old_row = player.row
+            old_col = player.col
+            new_pos = dir_2_pos(player.row, player.col, direction)
+            monster = put_player_2D(old_row, old_col, new_pos[@@ROW], new_pos[@@COL], player)
+            return monster
         end
     
         def add_block(orientation, start_row, start_col, length)
-            raise NotImplementedError.new("add_block method is not implemented yet.")
+            if(orientation == :HORIZONTAL)
+                inc_row = 1
+                inc_col = 0 
+            else
+                inc_row = 0
+                inc_col = 1 
+            end
+            row = start_row
+            col = start_col
+            length.times do
+                if (pos_ok(row, col) && empty_pos(row, col))
+                    @labyrinth[row][col] = @@BLOCK_CHAR
+                end
+                row += inc_row
+                col += inc_col
+            end
         end
     
         def valid_moves(row, col)
@@ -133,7 +157,25 @@ module Irrgarten
         end
     
         def put_player_2D(oldRow, oldCol, row, col, player)
-            raise NotImplementedError.new("putPlayer2D method is not implemented yet.")
+            output = nil
+            if (can_step_on(row, col))
+                if pos_ok(oldRow, oldCol)
+                    p = @players[oldRow][oldCol]
+                    if(p == player)
+                        update_old_pos(oldRow, oldCol)
+                        @players[oldRow][oldCol] = nil
+                    end
+                end
+                monster_pos = monster_pos(row, col)
+                if monster_pos
+                    @labyrinth[row][col] = COMBAT_CHAR
+                    output = @monsters[row][col]
+                else
+                    number = player.number
+                end
+                @players[row][col] = player
+                player.set_pos(row, col)
+            end
         end
 
         private :pos_ok, :empty_pos, :monster_pos, :exit_pos, :combat_pos, :can_step_on, :update_old_pos, :dir_2_pos, :random_empty_pos, :put_player_2D

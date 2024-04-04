@@ -24,7 +24,7 @@ module Irrgarten
             @shields = nil
         end
 
-        attr_reader :row, :col
+        attr_reader :row, :col, :number
 
         def resurrect
             return Dice.resurrect_player
@@ -44,7 +44,7 @@ module Irrgarten
         end
 
         def move(direction, valid_moves)
-
+            
         end
 
         def attack
@@ -130,10 +130,3 @@ module Irrgarten
 
 end
 
-player = Irrgarten::Player.new('0', 3, 5)
-w = player.new_weapon
-s = player.new_shield
-puts player.to_s
-puts "Weapon: " + w.to_s
-puts "Shield: " + s.to_s
-puts player.resurrect
