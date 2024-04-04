@@ -34,7 +34,6 @@ public class Game {
         
         for (int i = 1; i <= nPlayers; i++) {
             Player player = new Player((char)('1' + i - 1), Dice.randomIntelligence(), Dice.randomStrenght());
-            player.receiveReward();
             players.add(player);
         }
 
@@ -44,7 +43,6 @@ public class Game {
             Monster monster = new Monster("Monster " + (i + 1), Dice.randomIntelligence(), Dice.randomStrenght());
             monsters.add(monster);
         }
-
         // Determinar quién va a empezar
         currentPlayerIndex = Dice.whoStarts(nPlayers);
         currentPlayer = players.get(currentPlayerIndex);
@@ -56,7 +54,6 @@ public class Game {
         
         configureLabyrinth();
 
-        // Llamar al método que reparte los jugadores por el laberinto
     }
     
     public boolean finished(){

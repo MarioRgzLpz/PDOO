@@ -107,9 +107,9 @@ public class Player {
         DecimalFormat formato = new DecimalFormat("#.###");
         String formatstrength = formato.format(strength);
         String formatintelligence = formato.format(intelligence);
-        return  "\n" + "Name: " + name + "\n" + "Number: " + number + "\n" + "Intelligence: " + formatintelligence + "\n" 
-                + "Strength: " + formatstrength + "\n" + "Health: " + health + "\n" + "Position: (" + row + "," + col + ")"
-                + "\n" + "ConsecutiveHits: " + consecutiveHits + "\n" + "Weapons: " + weapons.toString() + "\n" + "Shield: " + shields.toString() + "\n";
+        return  "Name: " + name + " Number: " + number + " Intelligence: " + formatintelligence 
+                + " Strength: " + formatstrength + " Health: " + health + " Position: (" + row + "," + col + ")"
+                + " ConsecutiveHits: " + consecutiveHits + " Weapons: " + weapons.toString() + " Shield: " + shields.toString() + "\n";
     }    
     
     private void receiveWeapon(Weapon w){
