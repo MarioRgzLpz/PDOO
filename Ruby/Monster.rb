@@ -16,19 +16,22 @@ module Irrgarten
         end
 
         def dead
-            if @health <= 0
-                return true
-            else
-                return false
-            end
+            return @health <= 0
         end
 
         def attack
             return Dice.intensity(@strength)
         end
 
-        def defend
-            
+        def defend(received_attack)
+            is_dead = dead
+            if !is_dead
+                defensive_energy = Dice.intensity(@intelligence)
+                if received_attack > defensive_energy
+                    got_wounded
+                    is_dead = dead
+                end
+            end
         end
 
         def set_pos(a_row,a_col)
@@ -38,10 +41,10 @@ module Irrgarten
 
 
         def to_s
-            "\nName: #{@name}\n" +
-            "Intelligence: #{@intelligence}\n" +
-            "Strength: #{@strength}\n" +
-            "Health: #{@health}\n" +
+            "Name: #{@name}, " +
+            "Intelligence: #{@intelligence}, " +
+            "Strength: #{@strength}, " +
+            "Health: #{@health}, " +
             "Position: (#{@row},#{@col})\n"
         end
 
@@ -53,11 +56,3 @@ module Irrgarten
         private :got_wounded
     end
 end
-
-monstruo = Irrgarten::Monster.new("Unicorn", Irrgarten::Dice.random_intelligence, Irrgarten::Dice.random_strenght)
-
-monstruo.set_pos(2,2)
-
-puts "Monstuo ataca con fuerza: " + monstruo.attack.to_s
-
-puts monstruo.to_s 

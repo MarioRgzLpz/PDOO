@@ -27,9 +27,9 @@ module Irrgarten
             @n_rows.times do |i|
               @n_cols.times do |j|
                 @labyrinth[i][j] = @@EMPTY_CHAR
-                @labyrinth[i][j] = @@EXIT_CHAR if i == @exitRow && j == @exitCol
               end
             end
+            @labyrinth[@exit_row][@exit_col] = @@EXIT_CHAR
         end
 
         def set_square(row, col, value)
@@ -98,11 +98,17 @@ module Irrgarten
         end
     
         def valid_moves(row, col)
-            raise NotImplementedError.new("valid_moves method is not implemented yet.")
+            output = []
+            output << Directions::UP if can_step_on(row - 1, col)
+            output << Directions::DOWN if can_step_on(row + 1, col)
+            output << Directions::LEFT if can_step_on(row, col - 1)
+            output << Directions::RIGHT if can_step_on(row, col + 1)
+            return output
+
         end
     
         def pos_ok(row, col)
-            row >= 0 && row < @n_rows && col >= 0 && col < @n_cols
+            return row >= 0 && row < @n_rows && col >= 0 && col < @n_cols
         end
     
         def empty_pos(row, col)
@@ -128,9 +134,9 @@ module Irrgarten
         def update_old_pos(row, col)
             if pos_oK(row, col)
                 if combat_pos(row, col)
-                @labyrinth[row][col] = @@MONSTER_CHAR
+                    @labyrinth[row][col] = @@MONSTER_CHAR
                 else
-                @labyrinth[row][col] = @@EMPTY_CHAR
+                    @labyrinth[row][col] = @@EMPTY_CHAR
                 end
             end
         end
@@ -181,16 +187,3 @@ module Irrgarten
         private :pos_ok, :empty_pos, :monster_pos, :exit_pos, :combat_pos, :can_step_on, :update_old_pos, :dir_2_pos, :random_empty_pos, :put_player_2D
     end
 end
-
-labyrinth = Irrgarten::Labyrinth.new(5, 5, 2, 2)
-monstruo = Irrgarten::Monster.new("unicorn", 9.0, 3.0)
-puts labyrinth.to_s
-labyrinth.add_monster(1, 1, monstruo)
-puts "After adding monster"
-puts labyrinth.to_s
-posicion = labyrinth.send(:random_empty_pos)
-puts "Random empty position: (#{posicion[0]}, #{posicion[1]})"
-puts labyrinth.send(:can_step_on,posicion[0], posicion[1])
-newposicion = labyrinth.send(:dir_2_pos,4, 3, Irrgarten::Directions::DOWN)
-puts "New position: (#{newposicion[0]}, #{newposicion[1]})"
-puts labyrinth.send(:can_step_on,newposicion[0], newposicion[1])

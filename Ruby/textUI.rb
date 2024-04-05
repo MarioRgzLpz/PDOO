@@ -1,6 +1,6 @@
 
 require 'io/console'
-require_relative 'directions'
+require_relative 'Directions'
 
 module UI
 
@@ -24,7 +24,7 @@ module UI
     end
 
     def next_move
-      print "Where? "
+      print "Where do you want to move (↑:UP,↓:DOWN,→:RIGHT,←:LEFT)? "
       got_input = false
       while (!got_input)
         c = read_char
@@ -57,7 +57,16 @@ module UI
     end
 
     def show_game(game_state)
-      
+      if (!game_state.get_winner())
+        puts game_state.get_log().to_s
+        puts "Stats: "
+        puts game_state.players.to_s
+        puts game_state.monsters.to_s
+        puts game_state.labyrinth.to_s
+        puts "Player " + game_state.current_player().to_s + " turn"
+      else
+        puts "Player " + game_state.current_player().to_s + " wins"
+      end
     end
 
   end # class   
