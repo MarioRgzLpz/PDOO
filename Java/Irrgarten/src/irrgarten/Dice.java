@@ -5,6 +5,7 @@
 package irrgarten;
 
 import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Utility class for simulating dice rolls and game mechanics.
@@ -131,6 +132,24 @@ public class Dice {
     public static boolean discardElement(int usesLeft) {
         float discardProbability = (float) (MAX_USES - usesLeft) / MAX_USES;
         return generator.nextFloat() < discardProbability;
+    }
+    
+    public static Directions nextStep(Directions preference, ArrayList<Directions> validMoves, float intelligence){
+        Directions choosen_direction = null;
+        if (generator.nextFloat() <= (intelligence*0.1)){
+            choosen_direction = preference;
+        }
+        else {
+            int tam = validMoves.size();
+            float prob = 1.0f /tam;
+            float random = generator.nextFloat();
+            for(int i = 0; i < tam ; i++){
+                if(random >= prob*i && random < prob*(i+1)){
+                    choosen_direction = validMoves.get(i);
+                }
+            }
+        }
+        return choosen_direction;
     }
 }
 
