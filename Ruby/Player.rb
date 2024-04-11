@@ -68,23 +68,26 @@ module Irrgarten
                 snew = new_shield
                 receive_shield(snew)
             end
-            extra_health += Dice.health_reward
+            extra_health = Dice.health_reward
             @health += extra_health
         end
 
         def to_s
-            "Name: #{@name}, " +
-            "Intelligence: #{@intelligence}, " +
-            "Strength: #{@strength}, " +
-            "Health: #{@health}, " +
-            "Position: (#{@row},#{@col}), " + 
-            "Weapons: #{@weapons}, " +
-            "Shields: #{@shields}\n"
+            weapons_str = @weapons.map(&:to_s).join(', ')
+            shields_str = @shields.map(&:to_s).join(', ')
+      
+            "Name: #{@name}, " \
+            "Intelligence: #{@intelligence}, " \
+            "Strength: #{@strength}, " \
+            "Health: #{@health}, " \
+            "Position: (#{@row},#{@col}), " \
+            "Weapons: #{weapons_str}, " \
+            "Shields: #{shields_str}\n"
         end
 
         def receive_weapon(w)
             @weapons.each do |w|
-                discard = w.discard()
+                discard = w.discard
                 if discard
                     @weapons.delete(w)
                 end
@@ -96,7 +99,7 @@ module Irrgarten
 
         def receive_shield(s)
             @shields.each do |s|
-                discard = s.discard()
+                discard = s.discard
                 if discard
                     @shields.delete(s)
                 end
@@ -131,7 +134,7 @@ module Irrgarten
         def sum_shields
             total = 0
             @shields.each do |s|
-                total += s.defend
+                total += s.protect
             end
             return total
         end
@@ -143,13 +146,13 @@ module Irrgarten
         def manage_hit(received_attack)
             defense = defensive_energy
             if received_attack > defense
-                got_wounded()
-                inc_consecutive_hits()
+                got_wounded
+                inc_consecutive_hits
             else
-                reset_hits()
+                reset_hits
             end
             if ((@consecutive_hits == @@HITS2LOSE) || dead() )
-                reset_hits()
+                reset_hits
                 lose = true
             else
                 lose = false

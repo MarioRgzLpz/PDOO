@@ -24,12 +24,12 @@ module Irrgarten
         end
 
         def defend(received_attack)
-            is_dead = dead
+            is_dead = dead()
             if !is_dead
                 defensive_energy = Dice.intensity(@intelligence)
                 if received_attack > defensive_energy
                     got_wounded
-                    is_dead = dead
+                    is_dead = dead()
                 end
             end
         end

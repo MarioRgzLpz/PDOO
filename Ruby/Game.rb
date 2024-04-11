@@ -3,6 +3,7 @@
 require_relative 'GameState'
 require_relative 'Labyrinth'
 require_relative 'Orientation'
+require_relative 'GameCharacter'
 
 
 
@@ -29,6 +30,7 @@ module Irrgarten
                 @monsters << Monster.new("Monster " + i.to_s, Dice.random_intelligence, Dice.random_strenght)
             end
 
+            @monsters << Monster.new("Final Boss ", 10, 10)
             @current_player_index=Dice.who_starts(n_players)
             @current_player=@players[@current_player_index]
 
@@ -41,6 +43,7 @@ module Irrgarten
         end
 
         def next_step(preferredDirection)
+            @log = ""
             dead = @current_player.dead
             if(!dead)
                 direction = actual_direction(preferredDirection)
@@ -61,6 +64,7 @@ module Irrgarten
             if(!end_game)
                 next_player()
             end
+            return end_game
         end
 
         def game_state
@@ -91,21 +95,22 @@ module Irrgarten
             @labyrinth.add_monster(4, 1, @monsters[0]);
             @labyrinth.add_monster(7, 7, @monsters[1]);
             @labyrinth.add_monster(3, 4, @monsters[2]);
+            @labyrinth.add_monster(5, 3, @monsters[3]);
 
             @labyrinth.spread_players(@players)
         end
 
         def next_player
-            @current_player_index += 1
-            @current_player=players[@current_player_index]
+            index = (@current_player_index + 1)% @players.size
+            @current_player_index = index
+            @current_player=@players[@current_player_index]
         end
 
         def actual_direction(preferredDirection)
             current_row = @current_player.row
             current_col = @current_player.col
             valid_moves = @labyrinth.valid_moves(current_row, current_col)
-            output = @current_player.move(preferredDirection, valid_moves)
-            return output
+            return @current_player.move(preferredDirection, valid_moves)
         end
 
         def combat(monster)
@@ -123,16 +128,16 @@ module Irrgarten
                     winner = GameCharacter::PLAYER
                     lose = monster.defend(player_attack)
                 end
-                log_rounds(rounds, @@MAX_ROUNDS)
             end
+            log_rounds(rounds, @@MAX_ROUNDS)
             return winner
         end
 
         def manage_reward(winner)
             if(winner == GameCharacter::PLAYER)
-                receive_reward()
+                @current_player.receive_reward()
                 log_player_won()
-            else
+            else 
                 log_monster_won()
             end
 
@@ -173,7 +178,7 @@ module Irrgarten
         end
 
         def log_rounds(rounds, max)
-            @log += "Max rounds achieved" + "\n";
+            @log += "Round " + rounds.to_s + " achieved with a max of " + max.to_s + " rounds" + "\n";
         end
 
     end

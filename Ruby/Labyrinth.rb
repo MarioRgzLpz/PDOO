@@ -20,9 +20,9 @@ module Irrgarten
             @n_cols = a_n_cols
             @exit_row = a_exit_row
             @exit_col = a_exit_col
-            @monsters = Array.new(@n_rows, Array.new(@n_cols))
-            @players = Array.new(@n_rows, Array.new(@n_cols))
-            @labyrinth = Array.new(a_n_rows) { Array.new(a_n_cols, @@EMPTY_CHAR) }
+            @monsters = Array.new(@n_rows) { Array.new(@n_cols, nil) }
+            @players = Array.new(@n_rows) { Array.new(@n_cols, nil) }
+            @labyrinth = Array.new(@n_rows) { Array.new(@n_cols, @@EMPTY_CHAR) }
         
             @n_rows.times do |i|
               @n_cols.times do |j|
@@ -46,7 +46,7 @@ module Irrgarten
         end
     
         def have_a_winner
-            !@players[@exit_row][@exit_col].nil?
+            return @players[@exit_row][@exit_col] != nil
         end
     
         def to_s
@@ -79,12 +79,12 @@ module Irrgarten
         end
     
         def add_block(orientation, start_row, start_col, length)
-            if(orientation == :HORIZONTAL)
-                inc_row = 1
-                inc_col = 0 
-            else
+            if (orientation == Orientation::HORIZONTAL)
                 inc_row = 0
                 inc_col = 1 
+            else
+                inc_row = 1
+                inc_col = 0 
             end
             row = start_row
             col = start_col
@@ -132,7 +132,7 @@ module Irrgarten
         end
     
         def update_old_pos(row, col)
-            if pos_oK(row, col)
+            if pos_ok(row, col)
                 if combat_pos(row, col)
                     @labyrinth[row][col] = @@MONSTER_CHAR
                 else
@@ -143,13 +143,13 @@ module Irrgarten
     
         def dir_2_pos(row, col, direction)
             case direction
-            when :LEFT
+            when Directions::LEFT
                 col -= 1
-            when :RIGHT
+            when Directions::RIGHT
                 col += 1
-            when :UP
+            when Directions::UP
                 row -= 1
-            when :DOWN
+            when Directions::DOWN
                 row += 1
             end
             return [row, col]
@@ -158,30 +158,35 @@ module Irrgarten
         def random_empty_pos
             row = Dice.random_pos(@n_rows)
             col = Dice.random_pos(@n_cols)
-            row, col = Dice.random_pos(@n_rows), Dice.random_pos(@n_cols) until empty_pos(row, col)
+            while(!empty_pos(row,col))
+                row = Dice.random_pos(@n_rows)
+                col = Dice.random_pos(@n_cols)
+            end
             return [row, col]
         end
     
-        def put_player_2D(oldRow, oldCol, row, col, player)
+        def put_player_2D(old_row, old_col, row, col, player)
             output = nil
             if (can_step_on(row, col))
-                if pos_ok(oldRow, oldCol)
-                    p = @players[oldRow][oldCol]
-                    if(p == player)
-                        update_old_pos(oldRow, oldCol)
-                        @players[oldRow][oldCol] = nil
+                if pos_ok(old_row, old_col)
+                    jugador = @players[old_row][old_col]
+                    if(jugador == player)
+                        update_old_pos(old_row, old_col)
+                        @players[old_row][old_col] = nil
                     end
                 end
-                monster_pos = monster_pos(row, col)
-                if monster_pos
-                    @labyrinth[row][col] = COMBAT_CHAR
+                monster_p = monster_pos(row, col)
+                if monster_p
+                    @labyrinth[row][col] = @@COMBAT_CHAR
                     output = @monsters[row][col]
                 else
                     number = player.number
+                    @labyrinth[row][col] = number.to_s
                 end
                 @players[row][col] = player
                 player.set_pos(row, col)
             end
+            return output
         end
 
         private :pos_ok, :empty_pos, :monster_pos, :exit_pos, :combat_pos, :can_step_on, :update_old_pos, :dir_2_pos, :random_empty_pos, :put_player_2D
