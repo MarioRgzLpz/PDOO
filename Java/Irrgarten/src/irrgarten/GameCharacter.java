@@ -5,13 +5,10 @@
 package irrgarten;
 
 /**
- *
- * @author mariorl
+ * Enumeration representing the two types of characters in the game.
+ * @author mariorgzlpz
  */
-
-// Enumerado que representa a los dos tipos de personajes del juego
-
 public enum GameCharacter {
-    PLAYER, 
-    MONSTER
+    PLAYER, // Represents a player character.
+    MONSTER // Represents a monster character.
 }

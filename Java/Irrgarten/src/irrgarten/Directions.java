@@ -5,15 +5,12 @@
 package irrgarten;
 
 /**
- *
- * @author mariorl
+ * Enumeration representing the directions in which the player can move in the labyrinth.
+ * @author mariorgzlpz
  */
-
-// Enumerado que representa las direcciones en que se puede mover el jugador por el laberinto
-
 public enum Directions {
-    LEFT, 
-    RIGHT, 
-    UP, 
-    DOWN
+    LEFT, // Represents the left direction.
+    RIGHT, // Represents the right direction.
+    UP, // Represents the up direction.
+    DOWN // Represents the down direction.
 }

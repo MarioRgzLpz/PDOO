@@ -3,29 +3,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package irrgarten;
+
 import java.util.ArrayList;
 
 /**
- *
- * @author mariorl
+ * Represents the labyrinth in the game.
+ * @author mariorgzlpz
  */
 public class Labyrinth {
-    private static char BLOCK_CHAR = 'X';
-    private static char EMPTY_CHAR = '-';
-    private static char MONSTER_CHAR = 'M';
-    private static char COMBAT_CHAR = 'C';
-    private static char EXIT_CHAR = 'E';
-    private static int ROW = 0;
-    private static int COL = 1;
-    private int nRows;
-    private int nCols;
-    private int exitRow;
-    private int exitCol;
-    private Monster[][] monsters;
-    private char[][] labyrinth;
-    private Player[][] players;
-    
-    
+    private static char BLOCK_CHAR = 'X'; // Character representing a block in the labyrinth
+    private static char EMPTY_CHAR = '-'; // Character representing an empty space in the labyrinth
+    private static char MONSTER_CHAR = 'M'; // Character representing a monster in the labyrinth
+    private static char COMBAT_CHAR = 'C'; // Character representing a combat space in the labyrinth
+    private static char EXIT_CHAR = 'E'; // Character representing the exit in the labyrinth
+    private static int ROW = 0; // Index of the row in an array
+    private static int COL = 1; // Index of the column in an array
+    private int nRows; // Number of rows in the labyrinth
+    private int nCols; // Number of columns in the labyrinth
+    private int exitRow; // Row index of the exit
+    private int exitCol; // Column index of the exit
+    private Monster[][] monsters; // 2D array to store monsters in the labyrinth
+    private char[][] labyrinth; // 2D array to represent the labyrinth
+    private Player[][] players; // 2D array to store players in the labyrinth
+
+    /**
+     * Constructor for the Labyrinth class.
+     * @param nRows Number of rows in the labyrinth.
+     * @param nCols Number of columns in the labyrinth.
+     * @param exitRow Row index of the exit.
+     * @param exitCol Column index of the exit.
+     */
     public Labyrinth(int nRows, int nCols, int exitRow, int exitCol){
         this.nRows = nRows ;
         this.nCols = nCols;
@@ -35,6 +42,8 @@ public class Labyrinth {
         monsters = new Monster[nRows][nCols];
         players = new Player[nRows][nCols];
         labyrinth = new char[nRows][nCols];
+        
+        // Initialize the labyrinth with empty spaces
         for (int i = 0; i < nRows; i++) {
             for (int j = 0; j < nCols; j++) {
                 labyrinth[i][j] = EMPTY_CHAR;
@@ -43,6 +52,10 @@ public class Labyrinth {
         }
     }
     
+    /**
+     * Spread players randomly across the labyrinth.
+     * @param players The list of players to spread.
+     */
     public void spreadPlayers(ArrayList<Player> players){
         for (Player p : players) {
           int[] pos = randomEmptyPos();
@@ -51,32 +64,42 @@ public class Labyrinth {
         }
     }
     
+    /**
+     * Checks if there's a winner in the game.
+     * @return True if there's a winner, false otherwise.
+     */
     public boolean haveAWinner(){
-        if (players[exitRow][exitCol] != null) {
-            return true; // There is a winner
-        } else {
-            return false; // No player on the exit cell
-        }
+        return players[exitRow][exitCol] != null;
     }
     
+    /**
+     * Gets the string representation of the labyrinth.
+     * @return String representation of the labyrinth.
+     */
     public String toString() {
         String result = "";
 
-        // Recorre cada fila del laberinto
+        // Iterate over each row of the labyrinth
         for (int i = 0; i < nRows; i++) {
-            // Recorre cada columna del laberinto en la fila actual
+            // Iterate over each column of the labyrinth in the current row
             for (int j = 0; j < nCols; j++) {
-                // Agrega el carácter en la posición actual a la cadena de texto resultante
+                // Add the character at the current position to the resulting string
                 result += labyrinth[i][j] + "   ";
             }
-            // Agrega un salto de línea al final de cada fila
+            // Add a newline at the end of each row
             result += "\n";
         }
 
-        // Devuelve la cadena de texto resultante
+        // Return the resulting string
         return result;
     }
     
+    /**
+     * Adds a monster to the specified position in the labyrinth.
+     * @param row The row index of the position.
+     * @param col The column index of the position.
+     * @param monster The monster to add.
+     */
     public void addMonster(int row, int col, Monster monster){
         if(this.emptyPos(row, col) && this.posOK(row, col)){
             labyrinth[row][col] = 'M';
@@ -85,6 +108,12 @@ public class Labyrinth {
         }
     }
     
+    /**
+     * Moves a player in the specified direction and handles combat if necessary.
+     * @param direction The direction in which to move the player.
+     * @param player The player to move.
+     * @return The monster involved in the combat if any, null otherwise.
+     */
     public Monster putPlayer(Directions direction, Player player){
         int oldRow = player.getRow();
         int oldCol = player.getCol();
@@ -93,6 +122,13 @@ public class Labyrinth {
         return monster;
     }
     
+    /**
+     * Adds a block to the labyrinth.
+     * @param orientation The orientation of the block (HORIZONTAL or VERTICAL).
+     * @param startRow The starting row index of the block.
+     * @param startCol The starting column index of the block.
+     * @param length The length of the block.
+     */
     public void addBlock(Orientation orientation, int startRow, int startCol, int length){
         int incRow, incCol;
         if(orientation == Orientation.VERTICAL){
@@ -116,6 +152,12 @@ public class Labyrinth {
         }
     }
     
+    /**
+     * Gets the valid moves for a player at the specified position in the labyrinth.
+     * @param row The row index of the player's position.
+     * @param col The column index of the player's position.
+     * @return The list of valid moves.
+     */
     public ArrayList<Directions> validMoves(int row, int col){
         ArrayList<Directions> output = new ArrayList<>();
 
@@ -135,30 +177,71 @@ public class Labyrinth {
         return output;
     }
     
+    /**
+     * Checks if the given position is within the bounds of the labyrinth.
+     * @param row The row index.
+     * @param col The column index.
+     * @return True if the position is within bounds, false otherwise.
+     */
     private boolean posOK(int row, int col){
-        return (row >= 0 && row < nRows && col >= 0 && col < nCols){       
+        return (row >= 0 && row < nRows && col >= 0 && col < nCols);       
     }
     
+    /**
+     * Checks if the specified position in the labyrinth is empty.
+     * @param row The row index.
+     * @param col The column index.
+     * @return True if the position is empty, false otherwise.
+     */
     private boolean emptyPos(int row, int col){
         return labyrinth[row][col] == '-';
     }
     
+    /**
+     * Checks if the specified position in the labyrinth contains a monster.
+     * @param row The row index.
+     * @param col The column index.
+     * @return True if the position contains a monster, false otherwise.
+     */
     private boolean monsterPos(int row, int col){
         return labyrinth[row][col] == 'M';
     }
     
+    /**
+     * Checks if the specified position in the labyrinth is the exit.
+     * @param row The row index.
+     * @param col The column index.
+     * @return True if the position is the exit, false otherwise.
+     */
     private boolean exitPos(int row, int col){
         return labyrinth[row][col] == 'E';  
     }
     
+    /**
+     * Checks if the specified position in the labyrinth is a combat space.
+     * @param row The row index.
+     * @param col The column index.
+     * @return True if the position is a combat space, false otherwise.
+     */
     private boolean combatPos(int row, int col){
         return labyrinth[row][col] == 'C';
     }
     
+    /**
+     * Checks if a player can step on the specified position in the labyrinth.
+     * @param row The row index.
+     * @param col The column index.
+     * @return True if the player can step on the position, false otherwise.
+     */
     private boolean canStepOn(int row, int col){
         return this.posOK(row, col) && (this.emptyPos(row, col) || this.monsterPos(row, col) || this.exitPos(row, col));
     }
     
+    /**
+     * Updates the old position of a player or monster after moving.
+     * @param row The row index of the old position.
+     * @param col The column index of the old position.
+     */
     private void updateOldPos(int row, int col){
         if(this.posOK(row, col)){
             if(this.combatPos(row, col)){
@@ -170,6 +253,13 @@ public class Labyrinth {
         }
     }
     
+    /**
+     * Converts a direction to a new position.
+     * @param row The current row index.
+     * @param col The current column index.
+     * @param direction The direction to move.
+     * @return An array containing the new row and column indices.
+     */
     private int[] dir2Pos(int row, int col, Directions direction){
         switch(direction){
             case LEFT:
@@ -189,6 +279,10 @@ public class Labyrinth {
         return posicion;
     }
     
+    /**
+     * Finds a random empty position in the labyrinth.
+     * @return An array containing the row and column indices of the empty position.
+     */
     private int[] randomEmptyPos(){
         int row = Dice.randomPos(nRows);
         int col = Dice.randomPos(nCols);
@@ -199,6 +293,15 @@ public class Labyrinth {
         return new int[]{row, col};
     }
     
+    /**
+     * Places a player in the specified position in the labyrinth and handles combat.
+     * @param oldRow The old row index of the player.
+     * @param oldCol The old column index of the player.
+     * @param row The new row index of the player.
+     * @param col The new column index of the player.
+     * @param player The player to place.
+     * @return The monster involved in combat, if any.
+     */
     private Monster putPlayer2D(int oldRow, int oldCol, int row, int col, Player player){
         Monster output = null;
         if(canStepOn(row,col)){
@@ -223,22 +326,5 @@ public class Labyrinth {
             player.setPos(row, col);
         }
         return output;
-    }
-    
-    // main solo para probar la clase labyrinth
-    public static void main(String[] args) {
-        Labyrinth labyrinth = new Labyrinth(5, 5, 2, 2);
-        Monster monstruo = new Monster("unicorn", 9.0f,3.0f);
-        System.out.println(labyrinth.toString());
-        labyrinth.addMonster(1, 1, monstruo);
-        System.out.println(labyrinth.toString());
-        int posicion[] = labyrinth.randomEmptyPos();
-        System.out.println("Random empty position: (" + posicion[0] + ", " + posicion[1] + ")");
-        System.out.println(labyrinth.canStepOn(posicion[0], posicion[1]));
-        int newposicion[] = labyrinth.dir2Pos(4, 3, Directions.DOWN);
-        System.out.println("New position: (" + newposicion[0] + ", " + newposicion[1] + ")");
-        System.out.println(labyrinth.canStepOn(newposicion[0], newposicion[1]));
-        
-    }
-    
+    } 
 }

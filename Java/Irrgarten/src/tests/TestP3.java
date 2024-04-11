@@ -12,7 +12,7 @@ import irrgarten.controller.Controller;
 
 /**
  *
- * @author mariorl
+ * @author mariorgzlpz
  */
 public class TestP3 {
     public static void main(String[] args) {
