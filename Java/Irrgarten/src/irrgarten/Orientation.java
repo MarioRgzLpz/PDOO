@@ -5,13 +5,11 @@
 package irrgarten;
 
 /**
- *
- * @author mariorl
+ * Represents the two types of orientations for movements in the game: vertical and horizontal.
+ * Each orientation corresponds to a specific direction of movement in the labyrinth.
+ * @author mariorgzlpz
  */
-
-// Enumerado que representa los dos tipos de desplazamientos existentes en el juego
-
 public enum Orientation {
-    VERTICAL, 
-    HORIZONTAL
+    VERTICAL, // Movement in the vertical direction
+    HORIZONTAL // Movement in the horizontal direction
 }

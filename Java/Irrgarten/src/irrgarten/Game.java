@@ -9,8 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- *
- * @author mariorl
+ * Class representing the labyrinth game.
  */
 public class Game {
     private static int MAX_ROUNDS = 10;
@@ -21,45 +20,54 @@ public class Game {
     private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Monster> monsters = new ArrayList<>();
     
+    /**
+     * Constructor for the Game class.
+     * @param nPlayers Number of players in the game.
+     */
     public Game(int nPlayers){
-        
+        // Labyrinth setup
         int nRows = 9;
         int nCols = 9;
         int exitRow = 7;
         int exitCol = 8;
-
         labyrinth = new Labyrinth(nRows,nCols,exitRow,exitCol);
         
-        // Crear jugadores 
-        
-        for (int i = 1; i <= nPlayers; i++) {
-            Player player = new Player((char)('1' + i - 1), Dice.randomIntelligence(), Dice.randomStrenght());
+        // Creating players
+        for (int i = 0; i < nPlayers; i++) {
+            Player player = new Player((char)('0' + i ), Dice.randomIntelligence(), Dice.randomStrenght());
             players.add(player);
         }
-
-        // Crear varios monstruos
         
+        // Creating monsters
         for (int i = 0; i < nPlayers; i++) {
-            Monster monster = new Monster("Monster " + (i + 1), Dice.randomIntelligence(), Dice.randomStrenght());
+            Monster monster = new Monster("Monster " + i , Dice.randomIntelligence(), Dice.randomStrenght());
             monsters.add(monster);
         }
-        // Determinar quién va a empezar
+        
+        // Determine who starts
         currentPlayerIndex = Dice.whoStarts(nPlayers);
         currentPlayer = players.get(currentPlayerIndex);
-
-        // Inicializar el resto de atributos con valores iniciales apropiados
+        
+        // Initialize other attributes
         log = "";
 
-        // Llamar al método que configura el laberinto
-        
+        // Configure the labyrinth
         configureLabyrinth();
-
     }
     
+    /**
+     * Checks if the game has finished.
+     * @return true if the game has finished, false otherwise.
+     */
     public boolean finished(){
         return labyrinth.haveAWinner();
     }
     
+    /**
+     * Performs the next step in the game.
+     * @param preferredDirection Preferred direction to move.
+     * @return true if the game has finished after the step, false otherwise.
+     */
     public boolean nextStep(Directions preferredDirection){
         log = "";
         boolean dead = currentPlayer.dead();
@@ -68,7 +76,6 @@ public class Game {
             if(direction != preferredDirection){
                 logPlayerNoOrders();
             }
-
             Monster monster = labyrinth.putPlayer(direction,currentPlayer);
             
             if(monster == null){
@@ -92,6 +99,10 @@ public class Game {
         return endGame;
     }
     
+    /**
+     * Gets the current state of the game.
+     * @return Current state of the game.
+     */
     public GameState getGameState(){
         String namesplayers = "";
         String namesmonsters = "";
@@ -104,8 +115,11 @@ public class Game {
         return new GameState(labyrinth.toString(), namesplayers, namesmonsters, currentPlayerIndex, this.finished(),log);
     }
     
+    /**
+     * Configures the labyrinth with blocks and monsters.
+     */
     private void configureLabyrinth() {
-        
+        // Add blocks
         labyrinth.addBlock(Orientation.HORIZONTAL, 0, 0, 9);
         labyrinth.addBlock(Orientation.HORIZONTAL, 8, 0, 9);
         labyrinth.addBlock(Orientation.HORIZONTAL, 5, 1, 2);
@@ -117,20 +131,29 @@ public class Game {
         labyrinth.addBlock(Orientation.VERTICAL, 1, 8, 6);
         labyrinth.addBlock(Orientation.VERTICAL, 2, 6, 7);
         
+        // Add monsters
         labyrinth.addMonster(4, 1, monsters.get(0));
         labyrinth.addMonster(7, 7, monsters.get(1));
         labyrinth.addMonster(3, 4, monsters.get(2));
         
+        // Spread players in the labyrinth
         labyrinth.spreadPlayers(players);
-
     }
     
+    /**
+     * Moves to the next player in turn.
+     */
     public void nextPlayer(){
         int index = (currentPlayerIndex + 1) % players.size();
         currentPlayerIndex = index;
         currentPlayer = players.get(currentPlayerIndex);
     }
     
+    /**
+     * Gets the current direction for the player.
+     * @param preferredDirection Preferred direction to move.
+     * @return Current direction for the player.
+     */
     private Directions actualDirection(Directions preferredDirection){
         int currentRow = currentPlayer.getRow();
         int currentCol = currentPlayer.getCol();
@@ -138,6 +161,11 @@ public class Game {
         return currentPlayer.move(preferredDirection, validMoves);
     }
     
+    /**
+     * Simulates a combat between the player and a monster.
+     * @param monster Monster to combat against.
+     * @return The winner of the combat.
+     */
     private GameCharacter combat(Monster monster){
         int rounds = 0;
         GameCharacter winner = GameCharacter.PLAYER;
@@ -158,6 +186,10 @@ public class Game {
         return winner;
     }
     
+    /**
+     * Manages the reward after a combat.
+     * @param winner The winner of the combat.
+     */
     private void manageReward(GameCharacter winner){
         if(winner == GameCharacter.PLAYER){
             currentPlayer.receiveReward();
@@ -168,6 +200,9 @@ public class Game {
         }
     }
     
+    /**
+     * Manages player resurrection.
+     */
     private void manageResurrection(){
         boolean resurrect = Dice.resurrectPlayer();
         if(resurrect){
@@ -176,12 +211,13 @@ public class Game {
         }
         else{
             logPlayerSkipTurn();
-        }
-            
+        }   
     }
     
+    // Methods to log events in the game log
+    
     private void logPlayerWon(){
-        log += "Player " + (currentPlayerIndex+1) + " wins the combat" + "\n" + currentPlayer;
+        log += "Player " + currentPlayerIndex + " wins the combat" + "\n" + currentPlayer;
     }
     
     private void logMonsterWon(){
@@ -189,19 +225,19 @@ public class Game {
     }
     
     private void logResurrected(){
-        log +=  "Player " + (currentPlayerIndex+1) +  " resurrects" + "\n";
+        log +=  "Player " + currentPlayerIndex +  " resurrects" + "\n";
     }
     
     private void logPlayerSkipTurn(){
-        log += "Player " + (currentPlayerIndex+1) + " lost the turn" + "\n";
+        log += "Player " + currentPlayerIndex + " lost the turn" + "\n";
     }
     
     private void logPlayerNoOrders(){
-        log += "Player " + (currentPlayerIndex+1) + " couldnt follow the orders" + "\n";
+        log += "Player " + currentPlayerIndex + " couldnt follow the orders" + "\n";
     }
     
     private void logNoMonster(){
-        log += "Player " + (currentPlayerIndex+1) + " get into an empty square" + "\n";
+        log += "Player " + currentPlayerIndex + " get into an empty square" + "\n";
     }
     
     private void logRounds(int rounds, int max){
