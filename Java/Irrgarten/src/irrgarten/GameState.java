@@ -38,7 +38,7 @@ public class GameState {
     }
     
     public int getCurrentPlayer() {
-        return currentPlayer;
+        return currentPlayer+1;
     }
 
     public boolean getWinner() {
