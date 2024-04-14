@@ -177,6 +177,10 @@ public class Labyrinth {
         return output;
     }
     
+    public void setFuzzyPlayer(int row, int col, FuzzyPlayer fuzzyPlayer){
+        players[row][col] = fuzzyPlayer;
+    }
+    
     /**
      * Checks if the given position is within the bounds of the labyrinth.
      * @param row The row index.

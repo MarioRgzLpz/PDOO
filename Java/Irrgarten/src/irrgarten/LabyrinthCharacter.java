@@ -28,6 +28,8 @@ public abstract class LabyrinthCharacter {
         this.intelligence = other.intelligence;
         this.strength = other.strength;
         this.health = other.health;
+        this.row = other.row;
+        this.col = other.col;
     }
 
     /**
@@ -89,7 +91,7 @@ public abstract class LabyrinthCharacter {
      * @return A string representing the monster.
      */
     public String toString(){
-        return "Name: " + name + " Intelligence: " + intelligence + " Strength: " + strength + " Health: " + health + " Position: (" + row + "," + col + ")" + "\n";
+        return  name + " Intelligence: " + intelligence + " Strength: " + strength + " Health: " + health + " Position: (" + row + "," + col + ")";
     }
     
     
@@ -102,5 +104,5 @@ public abstract class LabyrinthCharacter {
     
     public abstract float attack();
     
-    public abstract boolean defend();
+    public abstract boolean defend(float attack);
 }

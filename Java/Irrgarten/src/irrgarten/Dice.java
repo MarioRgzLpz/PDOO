@@ -135,19 +135,13 @@ public class Dice {
     }
     
     public static Directions nextStep(Directions preference, ArrayList<Directions> validMoves, float intelligence){
-        Directions choosen_direction = null;
+        Directions choosen_direction;
         if (generator.nextFloat() <= (intelligence*0.1)){
             choosen_direction = preference;
         }
         else {
-            int tam = validMoves.size();
-            float prob = 1.0f /tam;
-            float random = generator.nextFloat();
-            for(int i = 0; i < tam ; i++){
-                if(random >= prob*i && random < prob*(i+1)){
-                    choosen_direction = validMoves.get(i);
-                }
-            }
+            int index = generator.nextInt(validMoves.size());
+            choosen_direction = validMoves.get(index);
         }
         return choosen_direction;
     }

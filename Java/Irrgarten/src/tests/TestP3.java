@@ -16,7 +16,7 @@ import irrgarten.controller.Controller;
  */
 public class TestP3 {
     public static void main(String[] args) {
-        int nplayers = 3;
+        int nplayers = 1;
         Game game = new Game(nplayers);
         TextUI view = new TextUI();
         Controller controller = new Controller(game,view);

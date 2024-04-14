@@ -37,13 +37,15 @@ public class Game {
             Player player = new Player((char)('0' + i ), Dice.randomIntelligence(), Dice.randomStrenght());
             players.add(player);
         }
-        
+        Player player = new Player((char)('0' + 1 ), 0, 0);
+        players.add(player);
         // Creating monsters
         for (int i = 0; i < nPlayers; i++) {
             Monster monster = new Monster("Monster " + i , Dice.randomIntelligence(), Dice.randomStrenght());
             monsters.add(monster);
         }
-        
+        Monster monster = new Monster("Boss " , 10, 10);
+        monsters.add(monster);
         // Determine who starts
         currentPlayerIndex = Dice.whoStarts(nPlayers);
         currentPlayer = players.get(currentPlayerIndex);
@@ -107,10 +109,10 @@ public class Game {
         String namesplayers = "";
         String namesmonsters = "";
         for(Player player : players){
-            namesplayers += player.toString();
+            namesplayers += player.toString() + "\n";
         }
         for(Monster monster : monsters){
-            namesmonsters += monster.toString();
+            namesmonsters += monster.toString() + "\n";
         }
         return new GameState(labyrinth.toString(), namesplayers, namesmonsters, currentPlayerIndex, this.finished(),log);
     }
@@ -134,8 +136,9 @@ public class Game {
         // Add monsters
         labyrinth.addMonster(4, 1, monsters.get(0));
         labyrinth.addMonster(7, 7, monsters.get(1));
-        labyrinth.addMonster(3, 4, monsters.get(2));
-        
+        //labyrinth.addMonster(3, 4, monsters.get(2));
+        //labyrinth.addMonster(5, 4, monsters.get(3));
+         
         // Spread players in the labyrinth
         labyrinth.spreadPlayers(players);
     }
@@ -207,6 +210,10 @@ public class Game {
         boolean resurrect = Dice.resurrectPlayer();
         if(resurrect){
             currentPlayer.resurrect();
+            FuzzyPlayer fuzzyPlayer = new FuzzyPlayer(currentPlayer);
+            players.set(currentPlayerIndex, fuzzyPlayer);
+            labyrinth.setFuzzyPlayer(currentPlayer.getRow(), currentPlayer.getCol(), fuzzyPlayer);
+            currentPlayer = fuzzyPlayer;
             logResurrected();
         }
         else{
