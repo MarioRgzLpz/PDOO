@@ -22,7 +22,8 @@ public class Player extends LabyrinthCharacter{
     private int consecutiveHits = 0;
     private ArrayList<Weapon> weapons = new ArrayList<>();
     private ArrayList<Shield> shields = new ArrayList<>();
-    
+    private ShieldCardDeck shieldCardDeck = new ShieldCardDeck();
+    private WeaponCardDeck weaponCardDeck = new WeaponCardDeck();
     /**
      * Constructor to initialize the player with a number, intelligence, and strength.
      * @param number The number representing the player.
@@ -170,9 +171,7 @@ public class Player extends LabyrinthCharacter{
      * @return A new weapon object.
      */
     private Weapon newWeapon() {
-        float power = Dice.weaponPower();
-        int uses = Dice.usesLeft();
-        return new Weapon(power,uses);
+        return weaponCardDeck.nextCard();
     }
     
     /**
@@ -180,9 +179,7 @@ public class Player extends LabyrinthCharacter{
      * @return A new shield object.
      */
     private Shield newShield() {
-        float power = Dice.shieldPower();
-        int uses = Dice.usesLeft();
-        return new Shield(power,uses);
+        return shieldCardDeck.nextCard();
     }
     
     /**

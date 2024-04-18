@@ -29,4 +29,8 @@ public class Shield extends CombatElement{
     public float protect(){
         return super.produceEffect();
     }
+    
+    public String toString(){
+        return "S" + super.toString();
+    }
 }

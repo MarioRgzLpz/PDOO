@@ -25,5 +25,9 @@ public class Weapon extends CombatElement {
      */
     public float attack(){
         return super.produceEffect();
-    }  
+    } 
+    
+    public String toString(){
+        return "W" + super.toString();
+    }
 }
