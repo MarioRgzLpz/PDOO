@@ -44,7 +44,7 @@ module Teoria
             # self.metodo_instancia_privado
             #metodo_instancia_publico
             # self.metodo_instancia_publico
-            metodo_clase_publico #Error: Estamos llamando a metodos de clase desde ambito de instancia da igual la visibilidad que tengamos
+            metodo_clase_publico #Error: Estamos llamando a metodos de instancia desde ambito de clase da igual la visibilidad que tengamos
             self.metodo_clase_publico
             metodo_clase_privado 
             self.metodo_clase_privado
@@ -54,7 +54,14 @@ module Teoria
             otro = Prueba.new
             # otro.metodo_instancia_privado Estamos llamando a un metodo privado de instancia de otro objeto en este caso prueba
             otro.metodo_instancia_publico # como es publico si se puede
-            otro.uso_dentro_clase #Esta llamando a los metedos de instancia de el mismo no de la instancia prueba
+            otro.class.uso_dentro_clase #Esta llamando a los metedos de instancia de el mismo no de la instancia prueba
+        end
+
+        def self.uso_otro_objeto
+            otro = Prueba.new
+            # otro.metodo_instancia_privado Estamos llamando a un metodo privado de instancia de otro objeto en este caso prueba
+            otro.metodo_instancia_publico # como es publico si se puede
+            otro.class.uso_dentro_clase #Esta llamando a los metedos de instancia de el mismo no de la instancia prueba #Preguntar
         end
         private :metodo_instancia_privado
 
@@ -63,10 +70,17 @@ module Teoria
 end
 
 prueba = Teoria::Prueba.new
+puts "-------------"
 prueba.metodo_instancia_publico
+puts "-------------"
 Teoria::Prueba.metodo_clase_publico
+puts "-------------"
 prueba.uso_dentro_clase
+puts "-------------"
 Teoria::Prueba.uso_dentro_clase
+puts "-------------"
 prueba.uso_otro_objeto
+puts "-------------"
+Teoria::Prueba.uso_otro_objeto
 #prueba.metodo_instancia_privado #Error: private method `metodo_instancia_privado' called for #<Teoria::Prueba:0x0000000004b3b8>
 #Teoria::Prueba.metodo_clase_privado #Error: private method `metodo_clase_privado' called for Teoria::Prueba:Class

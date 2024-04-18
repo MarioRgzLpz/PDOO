@@ -15,6 +15,11 @@ module Teoria
             return result
         end
 
+        def numero(x)
+            restrict(x)
+            puts "x: #{x}"
+        end
+
         #Creacion de varios constructores 
         def self.new_X(x)
             new(x, 0, 0)
@@ -50,6 +55,7 @@ module Teoria
         end
 
         private_class_method :new
+        private :restrict
     end
 end
 
@@ -61,7 +67,5 @@ pointX.imprimir
 pointXY.imprimir
 pointXYZ.imprimir
 point.imprimir
-pointXYmal = Teoria::Point3D.new_XY_mal(-7, 290)
-pointXYZmal = Teoria::Point3D.new_XYZ_mal(10, 20, 35)
-pointXYmal.imprimir
-pointXYZmal.imprimir
+point.numero(10)
+

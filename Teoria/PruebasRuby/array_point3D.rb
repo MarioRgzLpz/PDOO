@@ -25,7 +25,7 @@ end
 pointX = Teoria::ArrayPoint3D.new(10)
 pointXY = Teoria::ArrayPoint3D.new(-7, 290)
 pointXYZ = Teoria::ArrayPoint3D.new(10, 20, 35)
-point = Teoria::ArrayPoint3D.new
+point = Teoria::ArrayPoint3D.new()
 pointX.imprimir
 pointXY.imprimir
 pointXYZ.imprimir

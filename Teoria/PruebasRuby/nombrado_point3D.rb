@@ -27,7 +27,7 @@ pointZ = Teoria::NombradoPoint3D.new(z:110)
 pointXY = Teoria::NombradoPoint3D.new(x:-7, y:290)
 pointYZ = Teoria::NombradoPoint3D.new(y:-7, z:290)
 pointXYZ = Teoria::NombradoPoint3D.new(y:10, z:20, x:35)
-point = Teoria::NombradoPoint3D.new
+point = Teoria::NombradoPoint3D.new()
 pointX.imprimir
 pointY.imprimir
 pointZ.imprimir

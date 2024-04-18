@@ -1,24 +1,34 @@
 #encoding: UTF-8
-module Teoria
-    class Persona
-        @@num_personas = 0
-        def initialize(nombre, edad, color_pelo)
-            @nombre = nombre
-            @edad = edad
-            @color_pelo = color_pelo
-            @@num_personas += 1
-        end
 
-        def saluda
-            puts "Hola, soy #{@nombre}"
-        end
+require_relative 'cosa'
 
-        def cambia_nombre (otronombre)
-            @nombre = otronombre
-        end
 
-        def self.num_personas
-            puts "#{@@num_personas}"
+class Persona
+    @@MaximoPermitido = Cosa.Maximo
+    def initialize(nombre)
+        @nombre = nombre
+        @cosas = []
+    end
+
+    def saluda
+        puts "Hola, soy #{@nombre}"
+    end
+
+    def cambia_nombre (otronombre)
+        @nombre = otronombre
+    end
+
+    def otra_cosa(cosa)
+        if(@cosas.size < @@MaximoPermitido)
+            @cosas.push(cosa)
         end
+    end
+
+    def to_s
+        salida = "Soy #{@nombre} y tengo"
+        @cosas.each do |cosa|
+            salida += " #{cosa.nombre}"
+        end
+        salida
     end
 end
