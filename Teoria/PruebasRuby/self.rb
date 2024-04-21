@@ -8,6 +8,7 @@ module Teoria
         end
 
         def nombre
+            @nombre += " y vuelo"
             return @nombre
         end
 
@@ -16,7 +17,7 @@ module Teoria
         end
 
         def to_s
-            puts "Me llamo #{@nombre}"
+            puts self.nombre 
             return "Me llamo " + Cosa.nombre # Esta haciendo una llamada al metodo de clase nombre que devuelve el atributo @nombre 
         end
 
@@ -28,6 +29,7 @@ module Teoria
             puts @@MAYOR
             puts nombre #Como estoy en ambito de clase, se esta llamando al metodo de clase self.nombre que devuelve el atributo de instancia de clase @nombre
         end
+
     end
 end
 

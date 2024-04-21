@@ -27,6 +27,12 @@ class Padre
     def altos
         puts @@altos
     end
+
+    def privado
+        puts "Soy privado"
+    end
+
+    private :privado
 end
 
 class Hijo < Padre
@@ -38,6 +44,10 @@ class Hijo < Padre
     def salida
         super
         puts @peso
+    end
+
+    def prueba
+        privado
     end
 end
 
@@ -53,7 +63,9 @@ Padre.new(41,1.8).altos
 Padre.altos
 
 
+
+
 #hijo = Hijo.new
 
 
-hijo2 = Hijo.new(15).salida
+hijo2 = Hijo.new(15).prueba
