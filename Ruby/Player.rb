@@ -27,7 +27,10 @@ module Irrgarten
         attr_reader :row, :col, :number
 
         def resurrect
-            return Dice.resurrect_player
+            @health = @@INITIAL_HEALTH
+            @consecutive_hits=0
+            @weapons = Array.new
+            @shields = Array.new
         end
 
         def set_pos(a_row,a_col)

@@ -21,11 +21,7 @@ module Irrgarten
         end
 
         def discard
-            if Dice.discard_element(@uses)
-                return true
-            else
-                return false
-            end
+            return Dice.discard_element(@uses)
         end
     end
 end
