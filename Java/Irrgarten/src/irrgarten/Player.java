@@ -38,6 +38,8 @@ public class Player extends LabyrinthCharacter{
     public Player(Player other){
         super(other);
         this.number = other.number;
+        this.weapons = other.weapons;
+        this.shields = other.shields;
     }
     
     /**
@@ -123,7 +125,7 @@ public class Player extends LabyrinthCharacter{
      */
     @Override
     public String toString(){
-        return super.toString() + "ConsecutiveHits: " + consecutiveHits + " Weapons: " + weapons.toString() + " Shield: " + shields.toString();
+        return super.toString() + " ConsecutiveHits: " + consecutiveHits + " Weapons: " + weapons.toString() + " Shields: " + shields.toString();
     }  
     
     /**

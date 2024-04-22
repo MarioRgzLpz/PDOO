@@ -27,7 +27,7 @@ public class Shield extends CombatElement{
      * @return The protection level if the shield has remaining uses, otherwise 0.
      */
     public float protect(){
-        return super.produceEffect();
+        return this.produceEffect();
     }
     
     public String toString(){

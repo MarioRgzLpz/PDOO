@@ -24,7 +24,7 @@ public class Weapon extends CombatElement {
      * @return The power of the weapon if it has remaining uses, otherwise 0.
      */
     public float attack(){
-        return super.produceEffect();
+        return this.produceEffect();
     } 
     
     public String toString(){
