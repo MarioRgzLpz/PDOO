@@ -217,7 +217,7 @@ public class Game {
     // Methods to log events in the game log
     
     private void logPlayerWon(){
-        log += "Player " + currentPlayerIndex + " wins the combat" + "\n" + currentPlayer;
+        log += "Player " + currentPlayerIndex + " wins the combat" + "\n";
     }
     
     private void logMonsterWon(){
