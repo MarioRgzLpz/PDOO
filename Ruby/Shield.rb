@@ -17,15 +17,11 @@ module Irrgarten
         end
 
         def to_s
-            return "W[#{@protection},#{@uses}]"
+            return "S[#{@protection},#{@uses}]"
         end
 
         def discard
-            if Dice.discard_element(@uses)
-                return true
-            else
-                return false
-            end
++           return Dice.discard_element(@uses)
         end
     end
 end
