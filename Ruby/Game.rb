@@ -147,9 +147,9 @@ module Irrgarten
             resurrect = Dice.resurrect_player
             if(resurrect)
                 @current_player.resurrect
-                log_resurrected()
+                log_resurrected
             else
-                log_player_skip_turn()
+                log_player_skip_turn
             end
         end
 

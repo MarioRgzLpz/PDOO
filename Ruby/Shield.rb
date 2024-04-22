@@ -1,31 +1,15 @@
 #encoding utf-8
 
+require_relative 'CombatElement'
+
 module Irrgarten
-    class Shield
-        def initialize (a_protection, a_uses)
-            @protection = a_protection
-            @uses = a_uses
-        end
-        
+    class Shield < CombatElement
         def protect
-            if @uses > 0
-                @uses -= 1
-                return @protection
-            else
-                return 0
-            end
+            return produce_effect
         end
 
         def to_s
-            return "W[#{@protection},#{@uses}]"
-        end
-
-        def discard
-            if Dice.discard_element(@uses)
-                return true
-            else
-                return false
-            end
+            return "S" + super
         end
     end
 end

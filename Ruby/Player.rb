@@ -3,31 +3,38 @@
 require_relative 'Dice'
 require_relative 'Weapon'
 require_relative 'Shield'
+require_relative 'LabyrinthCharacter'
 
 module Irrgarten
-    class Player
+    class Player < LabyrinthCharacter
         @@MAX_WEAPONS=2
         @@MAX_SHIELDS=3
         @@INITIAL_HEALTH=10
         @@HITS2LOSE=3
 
         def initialize (a_number, a_intelligence, a_strength)
-            @name = "Player #" + a_number.to_s
+            super("Player " + a_number.to_s, a_intelligence, a_strength, @@INITIAL_HEALTH)
             @number = a_number
-            @intelligence = a_intelligence
-            @strength = a_strength
-            @health = @@INITIAL_HEALTH
-            @row = nil
-            @col = nil
-            @consecutive_hits=0
+            @consecutive_hits = 0
             @weapons = Array.new
             @shields = Array.new
         end
 
-        attr_reader :row, :col, :number
+        def new=other
+            super(other)
+            @number = other.number
+            @consecutive_hits = other.consecutive_hits
+            @weapons = other.weapons
+            @shields = other.shields
+        end
+
+        attr_reader :weapons, :shields, :number
 
         def resurrect
-            return Dice.resurrect_player
+            @health = @@INITIAL_HEALTH
+            @weapons = Array.new
+            @shields = Array.new
+            @consecutive_hits = 0
         end
 
         def set_pos(a_row,a_col)
@@ -75,14 +82,8 @@ module Irrgarten
         def to_s
             weapons_str = @weapons.map(&:to_s).join(', ')
             shields_str = @shields.map(&:to_s).join(', ')
-      
-            "Name: #{@name}, " \
-            "Intelligence: #{@intelligence}, " \
-            "Strength: #{@strength}, " \
-            "Health: #{@health}, " \
-            "Position: (#{@row},#{@col}), " \
-            "Weapons: #{weapons_str}, " \
-            "Shields: #{shields_str}\n"
+            return super() + ", W: #{weapons_str}, " \
+            "S: #{shields_str}\n"
         end
 
         def receive_weapon(w)
@@ -164,15 +165,11 @@ module Irrgarten
             @consecutive_hits = 0
         end
 
-        def got_wounded
-            @health -= 1
-        end
-
         def inc_consecutive_hits
             @consecutive_hits += 1
         end
 
-        private :got_wounded
+        protected :sum_weapons, :sum_shields, :defensive_energy
     end
 
 end
