@@ -4,7 +4,7 @@ require_relative 'GameState'
 require_relative 'Labyrinth'
 require_relative 'Orientation'
 require_relative 'GameCharacter'
-
+require_relative 'FuzzyPlayer'
 
 
 module Irrgarten
@@ -71,10 +71,10 @@ module Irrgarten
             string_players = ""
             string_monsters = ""
             @players.each do |player|
-                string_players += player.to_s
+                string_players += player.to_s + "\n"
             end
             @monsters.each do |monster|
-                string_monsters += monster.to_s
+                string_monsters += monster.to_s + "\n"
             end
 
             return GameState.new(@labyrinth.to_s, string_players, string_monsters, @current_player_index, finished(), @log)
@@ -147,6 +147,10 @@ module Irrgarten
             resurrect = Dice.resurrect_player
             if(resurrect)
                 @current_player.resurrect
+                fuzzy_player = FuzzyPlayer.new(@current_player)
+                @players[@current_player_index] = fuzzy_player
+                @labyrinth.set_fuzzy_player(@current_player.row, @current_player.col, fuzzy_player)
+                @current_player = fuzzy_player
                 log_resurrected
             else
                 log_player_skip_turn

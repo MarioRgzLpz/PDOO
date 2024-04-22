@@ -60,8 +60,8 @@ module UI
       if (!game_state.get_winner())
         puts game_state.get_log().to_s
         puts "Stats: "
-        puts game_state.players.to_s
-        puts game_state.monsters.to_s
+        puts game_state.players
+        puts game_state.monsters
         puts game_state.labyrinth.to_s
         puts "Player " + game_state.current_player().to_s + " turn"
       else

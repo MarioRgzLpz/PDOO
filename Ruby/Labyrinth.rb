@@ -36,6 +36,11 @@ module Irrgarten
             @labyrinth[row][col] = value
         end
 
+        def set_fuzzy_player(row, col, fuzzy)
+            @players[row][col] = fuzzy
+        end
+
+
         def spread_players(players)
             players.each do |player|
                 pos = random_empty_pos

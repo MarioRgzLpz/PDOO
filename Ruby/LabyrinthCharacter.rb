@@ -11,13 +11,16 @@ module Irrgarten
             @col = nil
         end
 
-        def new= (otro)
-            new(otro.name, otro.intelligence, otro.strength, otro.health)
+        def copia(otro)
+            @name = otro.name
+            @intelligence = otro.intelligence
+            @strength = otro.strength
+            @health = otro.health
             set_pos(otro.row, otro.col)
 
         end
 
-        attr_reader :row, :col
+        attr_reader :row, :col, :name
 
         def intelligence
             return @intelligence

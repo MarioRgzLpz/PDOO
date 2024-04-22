@@ -20,7 +20,7 @@ module Irrgarten
             @shields = Array.new
         end
 
-        def new=other
+        def copia(other)
             super(other)
             @number = other.number
             @consecutive_hits = other.consecutive_hits
@@ -28,7 +28,7 @@ module Irrgarten
             @shields = other.shields
         end
 
-        attr_reader :weapons, :shields, :number
+        attr_reader :weapons, :shields, :number, :consecutive_hits
 
         def resurrect
             @health = @@INITIAL_HEALTH
@@ -82,8 +82,8 @@ module Irrgarten
         def to_s
             weapons_str = @weapons.map(&:to_s).join(', ')
             shields_str = @shields.map(&:to_s).join(', ')
-            return super() + ", W: #{weapons_str}, " \
-            "S: #{shields_str}\n"
+            return super() + ", Weapons: #{weapons_str}, " \
+            "Shields: #{shields_str}"
         end
 
         def receive_weapon(w)

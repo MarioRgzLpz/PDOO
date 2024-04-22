@@ -5,7 +5,12 @@ require_relative 'Dice'
 module Irrgarten
     class FuzzyPlayer < Player
         def initialize (other)
-            new=other
+            copia(other)
+        end
+
+        def move(direction, valid_moves)
+            direction_preference = super(direction, valid_moves)
+            return Dice.next_step(direction_preference, valid_moves, @intelligence)
         end
 
         def attack
