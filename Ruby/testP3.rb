@@ -1,6 +1,6 @@
 #encoding utf-8
 
-require_relative 'Game'
+require_relative 'game'
 require_relative 'controller'
 require_relative 'textUI'
 

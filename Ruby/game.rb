@@ -1,9 +1,9 @@
 #encoding utf-8
 
-require_relative 'GameState'
-require_relative 'Labyrinth'
-require_relative 'Orientation'
-require_relative 'GameCharacter'
+require_relative 'game_state'
+require_relative 'labyrinth'
+require_relative 'orientation'
+require_relative 'game_character'
 
 
 
