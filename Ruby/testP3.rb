@@ -1,8 +1,8 @@
 #encoding utf-8
 
 require_relative 'game'
-require_relative 'controller'
-require_relative 'textUI'
+require_relative 'controller/controller'
+require_relative 'ui/textUI'
 
 
 class TestP3
