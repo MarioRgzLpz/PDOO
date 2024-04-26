@@ -60,7 +60,7 @@ public class Labyrinth {
         for (Player p : players) {
           int[] pos = randomEmptyPos();
           int oldRow = -1 ,oldCol = -1;
-          Monster monster = putPlayer2D(oldRow,oldCol,pos[0],pos[1],p);
+          Monster monster = putPlayer2D(oldRow,oldCol,pos[ROW],pos[COL],p);
         }
     }
     

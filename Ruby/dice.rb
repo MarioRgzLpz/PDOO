@@ -74,5 +74,6 @@ module Irrgarten
                 return valid_moves[@@generator.rand(valid_moves.length)]
             end
         end
+
     end
 end

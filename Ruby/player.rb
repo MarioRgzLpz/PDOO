@@ -13,12 +13,14 @@ module Irrgarten
         @@HITS2LOSE=3
 
         def initialize (a_number, a_intelligence, a_strength)
+
             super("Player " + a_number.to_s, a_intelligence, a_strength, @@INITIAL_HEALTH)
             @number = a_number
             @consecutive_hits = 0
             @weapons = Array.new
             @shields = Array.new
         end
+
 
         def copia(other)
             super(other)
@@ -170,6 +172,7 @@ module Irrgarten
         end
 
         protected :sum_weapons, :sum_shields, :defensive_energy
+
     end
 
 end
