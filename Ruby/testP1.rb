@@ -2,7 +2,7 @@
 
 require_relative 'directions'
 require_relative 'dice'
-require_relative 'dame_character'
+require_relative 'game_character'
 require_relative 'orientation'
 require_relative 'shield'
 require_relative 'weapon'

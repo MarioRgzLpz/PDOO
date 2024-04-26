@@ -66,5 +66,14 @@ module Irrgarten
             probabilidad_discard = (@@MAX_USES - uses_left).to_f / @@MAX_USES
             return @@generator.rand() < probabilidad_discard
         end
+
+        def self.next_step(preference, valid_moves, intelligence)
+            if (intelligence > @@generator.rand() * @@MAX_INTELLIGENCE)
+                return preference
+            else
+                return valid_moves[@@generator.rand(valid_moves.length)]
+            end
+        end
+
     end
 end
