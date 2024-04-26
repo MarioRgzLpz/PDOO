@@ -1,12 +1,12 @@
 #encoding utf-8
 
-require_relative 'Directions'
-require_relative 'Dice'
-require_relative 'GameCharacter'
-require_relative 'Orientation'
-require_relative 'Shield'
-require_relative 'Weapon'
-require_relative 'GameState'
+require_relative 'directions'
+require_relative 'dice'
+require_relative 'game_character'
+require_relative 'orientation'
+require_relative 'shield'
+require_relative 'weapon'
+require_relative 'game_state'
 
 class TestP1
     def main

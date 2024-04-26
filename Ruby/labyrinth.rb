@@ -1,8 +1,8 @@
 #encoding utf-8
 
-require_relative 'Monster'
-require_relative 'Player'
-require_relative 'Directions'
+require_relative 'monster'
+require_relative 'player'
+require_relative 'directions'
 
 module Irrgarten
     class Labyrinth

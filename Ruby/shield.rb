@@ -1,15 +1,15 @@
 #encoding utf-8
 
-require_relative 'CombatElement'
+require_relative 'combat_element'
 
 module Irrgarten
-    class Weapon < CombatElement
-        def attack
+    class Shield < CombatElement
+        def protect
             return produce_effect
         end
 
         def to_s
-            return "W" + super
+            return "S" + super
         end
     end
 end

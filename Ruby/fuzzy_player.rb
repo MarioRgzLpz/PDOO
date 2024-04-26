@@ -1,6 +1,6 @@
 #encoding utf-8
 
-require_relative 'Dice'
+require_relative 'dice'
 
 module Irrgarten
     class FuzzyPlayer < Player
