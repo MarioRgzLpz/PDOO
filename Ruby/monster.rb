@@ -1,6 +1,7 @@
 #encoding utf-8
 
 require_relative 'dice'
+
 require_relative 'labyrinth_character'
 
 module Irrgarten
@@ -25,7 +26,7 @@ module Irrgarten
                 end
             end
         end
-
+      
         private :got_wounded
     end
 end

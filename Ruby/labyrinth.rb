@@ -40,7 +40,6 @@ module Irrgarten
             @players[row][col] = fuzzy
         end
 
-
         def spread_players(players)
             players.each do |player|
                 pos = random_empty_pos

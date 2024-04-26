@@ -71,6 +71,7 @@ module Irrgarten
             string_players = ""
             string_monsters = ""
             @players.each do |player|
+
                 string_players += player.to_s + "\n"
             end
             @monsters.each do |monster|
