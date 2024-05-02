@@ -6,7 +6,7 @@ import irrgarten.GameState;
 import java.util.Scanner;
 
 
-public class TextUI {
+public class TextUI implements UI{
     
     private static Scanner in = new Scanner(System.in);
     
@@ -16,6 +16,7 @@ public class TextUI {
     }
     
 
+    @Override
     public Directions nextMove() {
         System.out.print("Where do you want to move (w:UP,s:DOWN,d:RIGHT,a:LEFT)? ");
         
@@ -50,13 +51,14 @@ public class TextUI {
         return direction;
     }
     
+    @Override
     public void showGame(GameState gameState) {
         if(!gameState.getWinner()){
-            System.out.println(gameState.getLog().toString());
+            System.out.println(gameState.getLog());
             System.out.println("Stats: ");
             System.out.println(gameState.getPlayers());
             System.out.println(gameState.getMonsters());
-            System.out.println(gameState.getLabyrinth().toString());
+            System.out.println(gameState.getLabyrinth());
             System.out.println("Player " + gameState.getCurrentPlayer() + " moves");
         }
         else

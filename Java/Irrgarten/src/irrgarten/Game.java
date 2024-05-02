@@ -37,15 +37,11 @@ public class Game {
             Player player = new Player((char)('0' + i ), Dice.randomIntelligence(), Dice.randomStrenght());
             players.add(player);
         }
-        Player player = new Player((char)('0' + 1 ), 0, 0);
-        players.add(player);
         // Creating monsters
         for (int i = 0; i < nPlayers; i++) {
             Monster monster = new Monster("Monster " + i , Dice.randomIntelligence(), Dice.randomStrenght());
             monsters.add(monster);
         }
-        Monster monster = new Monster("Boss " , 10, 10);
-        monsters.add(monster);
         // Determine who starts
         currentPlayerIndex = Dice.whoStarts(nPlayers);
         currentPlayer = players.get(currentPlayerIndex);
