@@ -26,7 +26,5 @@ module Irrgarten
                 end
             end
         end
-      
-        private :got_wounded
     end
 end

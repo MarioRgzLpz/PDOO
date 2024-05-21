@@ -30,7 +30,6 @@ module Irrgarten
                 @monsters << Monster.new("Monster " + i.to_s, Dice.random_intelligence, Dice.random_strenght)
             end
 
-            @monsters << Monster.new("Final Boss ", 10, 10)
             @current_player_index=Dice.who_starts(n_players)
             @current_player=@players[@current_player_index]
 
@@ -96,7 +95,6 @@ module Irrgarten
             @labyrinth.add_monster(4, 1, @monsters[0]);
             @labyrinth.add_monster(7, 7, @monsters[1]);
             @labyrinth.add_monster(3, 4, @monsters[2]);
-            @labyrinth.add_monster(5, 3, @monsters[3]);
 
             @labyrinth.spread_players(@players)
         end
