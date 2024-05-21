@@ -25,6 +25,7 @@ module Irrgarten
                     is_dead = dead()
                 end
             end
+            return is_dead
         end
     end
 end

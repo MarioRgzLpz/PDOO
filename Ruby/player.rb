@@ -59,7 +59,7 @@ module Irrgarten
         end
 
         def attack
-            return Dice.intensity(@strength)
+            return @strength + sum_weapons
         end
 
         def defend(received_attack)

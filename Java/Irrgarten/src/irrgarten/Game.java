@@ -17,8 +17,8 @@ public class Game {
     private String log;
     private Player currentPlayer;
     private Labyrinth labyrinth;
-    private ArrayList<Player> players = new ArrayList<>();
-    private ArrayList<Monster> monsters = new ArrayList<>();
+    private ArrayList<Player> players;
+    private ArrayList<Monster> monsters;
     
     /**
      * Constructor for the Game class.
@@ -31,6 +31,8 @@ public class Game {
         int exitRow = 7;
         int exitCol = 8;
         labyrinth = new Labyrinth(nRows,nCols,exitRow,exitCol);
+        players = new ArrayList<>();
+        monsters = new ArrayList<>();
         
         // Creating players
         for (int i = 0; i < nPlayers; i++) {

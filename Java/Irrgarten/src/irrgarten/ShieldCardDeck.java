@@ -12,6 +12,8 @@ public class ShieldCardDeck extends CardDeck<Shield>{
     @Override
     protected void addCards(){
         int nCards = 4;
+        Shield elEscudo = new Shield(5,5);
+        addCard(elEscudo);
         for (int i = 0; i < nCards; i++){
             float protection = Dice.shieldPower();
             int uses = Dice.usesLeft();

@@ -12,10 +12,12 @@ public class WeaponCardDeck extends CardDeck<Weapon>{
     @Override
     protected void addCards(){
         int nCards = 4;
+        Weapon elArma = new Weapon(5,5);
+        addCard(elArma);
         for (int i = 0; i < nCards; i++){
             float power = Dice.weaponPower();
             int uses = Dice.usesLeft();
             addCard(new Weapon(power,uses));     
-        }     
+        }
     }    
 }

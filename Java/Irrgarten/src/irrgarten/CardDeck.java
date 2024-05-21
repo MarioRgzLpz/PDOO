@@ -9,11 +9,13 @@ import java.util.Collections;
 /**
  *
  * @author mariorl
+ * @param <T>
  */
-public abstract class  CardDeck <T> {
-    private ArrayList<T> cardDeck = new ArrayList<>();
+public abstract class  CardDeck <T extends CombatElement>{
+    private ArrayList<T> cardDeck;
     
     public CardDeck(){
+        cardDeck = new ArrayList<>();
     }
     
     protected abstract void addCards();
