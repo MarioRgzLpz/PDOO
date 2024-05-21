@@ -14,11 +14,11 @@ module Irrgarten
         end
 
         def attack
-            return Dice.intensity(@strength + sum_weapons)
+            return Dice.intensity(@strength) + sum_weapons
         end
 
         def defensive_energy
-            return Dice.intensity(@intelligence + sum_shields)
+            return Dice.intensity(@intelligence) + sum_shields
         end
 
         def to_s
