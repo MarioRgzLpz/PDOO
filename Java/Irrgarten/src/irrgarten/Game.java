@@ -42,6 +42,8 @@ public class Game {
             Monster monster = new Monster("Monster " + i , Dice.randomIntelligence(), Dice.randomStrenght());
             monsters.add(monster);
         }
+        Monster monster = new Monster("Monster Boss" , 100, 100);
+        monsters.add(monster);
         // Determine who starts
         currentPlayerIndex = Dice.whoStarts(nPlayers);
         currentPlayer = players.get(currentPlayerIndex);
@@ -132,8 +134,8 @@ public class Game {
         // Add monsters
         labyrinth.addMonster(4, 1, monsters.get(0));
         labyrinth.addMonster(7, 7, monsters.get(1));
-        //labyrinth.addMonster(3, 4, monsters.get(2));
-        //labyrinth.addMonster(5, 4, monsters.get(3));
+        labyrinth.addMonster(3, 4, monsters.get(2));
+        labyrinth.addMonster(5, 4, monsters.get(3));
          
         // Spread players in the labyrinth
         labyrinth.spreadPlayers(players);

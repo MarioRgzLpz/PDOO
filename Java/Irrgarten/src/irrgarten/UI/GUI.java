@@ -15,7 +15,7 @@ import java.awt.Font;
 public class GUI extends javax.swing.JFrame implements UI{
 
     private Cursors cursors;
-    private Font fuente = new Font("Arial", Font.PLAIN, 20);
+    private Font fuente = new Font(Font.MONOSPACED, Font.PLAIN, 18);
     private Font fuente2 = new Font("Arial", Font.PLAIN, 11);
     /**
      * Creates new form UserUI
@@ -40,8 +40,6 @@ public class GUI extends javax.swing.JFrame implements UI{
         labyrinth.setText(gameState.getLabyrinth());
         labyrinth.setFont(fuente);
         currentPlayer.setText("Player " + gameState.getCurrentPlayer() + " turn's");
-        int siguiente = gameState.getCurrentPlayer()+1;
-        nextPlayer.setText("Next player " + siguiente);
         if(gameState.getWinner()){
             winner.setVisible(true);
             winner.setText("Winner " + gameState.getCurrentPlayer());
@@ -63,7 +61,6 @@ public class GUI extends javax.swing.JFrame implements UI{
         jScrollPane2 = new javax.swing.JScrollPane();
         labyrinth = new javax.swing.JTextArea();
         winner = new javax.swing.JLabel();
-        nextPlayer = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         players = new javax.swing.JTextArea();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -83,8 +80,6 @@ public class GUI extends javax.swing.JFrame implements UI{
 
         winner.setText("winner");
 
-        nextPlayer.setText("nextPlayer");
-
         players.setColumns(20);
         players.setRows(5);
         jScrollPane3.setViewportView(players);
@@ -100,7 +95,6 @@ public class GUI extends javax.swing.JFrame implements UI{
             .addGroup(layout.createSequentialGroup()
                 .addGap(125, 125, 125)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nextPlayer)
                     .addComponent(winner)
                     .addComponent(currentPlayer))
                 .addGap(300, 300, 300)
@@ -121,10 +115,9 @@ public class GUI extends javax.swing.JFrame implements UI{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(currentPlayer)
-                        .addGap(18, 18, 18)
-                        .addComponent(nextPlayer)
-                        .addGap(18, 18, 18)
-                        .addComponent(winner))
+                        .addGap(32, 32, 32)
+                        .addComponent(winner)
+                        .addGap(19, 19, 19))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,7 +141,6 @@ public class GUI extends javax.swing.JFrame implements UI{
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea labyrinth;
     private javax.swing.JTextArea monsters;
-    private javax.swing.JLabel nextPlayer;
     private javax.swing.JTextArea players;
     private javax.swing.JLabel winner;
     // End of variables declaration//GEN-END:variables

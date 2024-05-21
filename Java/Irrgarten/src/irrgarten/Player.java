@@ -40,6 +40,8 @@ public class Player extends LabyrinthCharacter{
         this.number = other.number;
         this.weapons = other.weapons;
         this.shields = other.shields;
+        //this.shieldCardDeck = other.shieldCardDeck;
+        //this.weaponCardDeck = other.weaponCardDeck;
     }
     
     /**
