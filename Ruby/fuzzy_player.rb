@@ -24,7 +24,5 @@ module Irrgarten
         def to_s
             return "Fuzzy" + super
         end
-
-        private :got_wounded
     end
 end
