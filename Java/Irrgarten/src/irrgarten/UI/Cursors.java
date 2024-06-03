@@ -109,6 +109,7 @@ public class Cursors extends javax.swing.JDialog {
     private void upButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upButtonActionPerformed
         // TODO add your handling code here:
         direction = Directions.UP;
+        setEnabled(false);
         dispose();
     }//GEN-LAST:event_upButtonActionPerformed
 
